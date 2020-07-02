@@ -20,7 +20,7 @@ class Landing extends React.Component {
          //add state(hasBeenScrolled), boolean, if the window has been scrolled(true), then onclick of button go back to top
       };
       axios
-         .get("http://localhost:3012/api/v1/allCases")
+         .get("/api/v1/allCases")
          .then((response) => {
             // handle success
             props.dispatch({
@@ -111,10 +111,10 @@ class Landing extends React.Component {
                      <div>
                         {this.props.allCases.length > 0 &&
                            this.props.allCases.map((object, index) => {
-                              const url = object.urlOfPicture;
-                              const name = object.nameOfPersonOrGroup;
-                              const description = object.backgroundInformation;
-                              const user = object.whoUpdatedLast[0];
+                              const url = object.imageUrl;
+                              const name = object.title;
+                              const description = object.description;
+                              const user = object.id;
                               return (
                                  <CaseOverview
                                     key={index}
