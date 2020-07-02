@@ -1,0 +1,43 @@
+$spacer: 1rem; // 16px in most browsers
+$spacers: ();
+$spacers: map-merge(
+    (
+        0: 0px,
+        1: 4px,
+        2: 8px,
+        3: 12px,
+        4: 16px,
+        5: 24px,
+        6: 32px,
+        7: 48px,
+        8: 64px,
+        9: 128px,
+    ),
+    $spacers
+);
+
+// Cards
+
+$card-spacer-y: 0.75rem !default;
+$card-spacer-x: 1.25rem !default;
+$card-border-width: 0;
+$card-border-radius: $border-radius !default;
+$card-border-color: rgba($black, 0.125) !default;
+$card-inner-border-radius: subtract(
+    $card-border-radius,
+    $card-border-width
+) !default;
+$card-cap-bg: rgba($black, 0.03) !default;
+$card-cap-color: null !default;
+$card-height: null !default;
+$card-color: null !default;
+$card-bg: $white !default;
+
+$card-img-overlay-padding: 1.25rem !default;
+
+$card-group-margin: $grid-gutter-width / 2 !default;
+$card-deck-margin: $card-group-margin !default;
+
+$card-columns-count: 3 !default;
+$card-columns-gap: 1.25rem !default;
+$card-columns-margin: $card-spacer-y !default;

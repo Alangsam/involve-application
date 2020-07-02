@@ -1,0 +1,49 @@
+.background-image {
+    background: url("../images/itl.cat_hd-wallpapers-for-website_1572191.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.container {
+    min-height: 100vh;
+}
+.all-v {
+    min-height: 100vh;
+}
+.background {
+    background: url("https://www.innocenceproject.org/wp-content/uploads/2016/02/8f038d8e-e7ae-4ea0-bc1c-c5632286e9d6.jpeg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.blur {
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+}
+#pop-up-url-input {
+    position: fixed;
+    display: none;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 999;
+    height: 150px;
+    margin-top: 200px;
+}
+
+.hmmm {
+    max-height: 200px;
+    overflow: hidden;
+}
+.thumb-post {
+    width: 100%;
+    min-height: 150px;
+    position: center;
+}
