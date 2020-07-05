@@ -21,6 +21,7 @@ class Landing extends React.Component {
       };
       axios
          .get("/api/v1/allCases")
+         //.get("http://localhost:3013/api/v1/allCases")
          .then((response) => {
             // handle success
             props.dispatch({
