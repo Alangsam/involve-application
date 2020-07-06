@@ -16,11 +16,13 @@ class AllCasesAdmin extends React.Component {
          cases: [],
          searchTerm: "",
          userCases: [],
+         usingAllCases: true,
       };
    }
 
    componentDidMount() {
       this.setCases();
+      this.setUserCases();
    }
 
    setOrder(e) {
@@ -64,7 +66,7 @@ class AllCasesAdmin extends React.Component {
             // handle success
             console.log(res);
             this.setState({
-               cases: res.data,
+               userCases: res.data,
             });
             this.props.dispatch({
                type: actions.STORE_ALL_CASES,
@@ -95,7 +97,9 @@ class AllCasesAdmin extends React.Component {
                         <h6
                            className="btn btn-dark"
                            onClick={() => {
-                              this.setUserCases();
+                              this.setState({
+                                 usingAllCases: !this.state.usingAllCases,
+                              });
                            }}
                         >
                            {this.props.adminAccount.userName}
@@ -137,7 +141,32 @@ class AllCasesAdmin extends React.Component {
                      <div className="col-12">
                         <div className="">
                            {this.state.cases.length > 0 &&
+                              this.state.usingAllCases &&
                               this.state.cases.map((object, index) => {
+                                 const url = object.imageUrl;
+                                 const name = object.title;
+                                 const description = object.description;
+                                 const user = object.updatedByUserId;
+
+                                 return (
+                                    <div
+                                       key={Math.random()}
+                                       className="d-inline-block col-lg-6"
+                                    >
+                                       <CaseOverview
+                                          key={Math.random()}
+                                          id={index}
+                                          name={name}
+                                          url={url}
+                                          description={description}
+                                          user={user}
+                                       />
+                                    </div>
+                                 );
+                              })}
+                           {this.state.userCases.length > 0 &&
+                              this.state.usingAllCases === false &&
+                              this.state.userCases.map((object, index) => {
                                  const url = object.imageUrl;
                                  const name = object.title;
                                  const description = object.description;
