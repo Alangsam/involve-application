@@ -2,8 +2,11 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+app.use(express.json());
+
 app.use("/api/v1/cases", require("./api/v1/searchedOrderedCases"));
 app.use("/api/v1/allCases", require("./api/v1/allCases"));
+app.use("/api/v1/users", require("./api/v1/users"));
 
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
