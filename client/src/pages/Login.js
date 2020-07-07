@@ -33,13 +33,16 @@ class Login extends React.Component {
          userPassword: "paulalikesrunning",
          createdDate: "1591898317",
       };
+      const inputedName = document.getElementById("name-create").value;
+      const inputedOrganization = document.getElementById("organization-create")
+         .value;
       const inputedEmail = document.getElementById("email-create").value;
       const inputedPassword = document.getElementById("password-create").value;
 
       const adminUser = {
          id: getUuid(),
-         name: "StanMan208",
-         organization: "whoCares",
+         name: inputedName,
+         organization: inputedOrganization,
          email: inputedEmail,
          password: inputedPassword,
          created_date: Date.now(),
@@ -140,6 +143,16 @@ class Login extends React.Component {
                               Sign up, get Involved
                            </h5>
                            <form className="form-group text-center">
+                              <label htmlFor="name-create">Username</label>
+                              <input
+                                 id="name-create"
+                                 className=" form-control"
+                              ></input>
+                              <label htmlFor="email-create">Organization</label>
+                              <input
+                                 id="organization-create"
+                                 className=" form-control"
+                              ></input>
                               <label htmlFor="email-create">Email</label>
                               {this.state.createEmailHasError && (
                                  <div

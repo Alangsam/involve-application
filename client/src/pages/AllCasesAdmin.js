@@ -102,7 +102,7 @@ class AllCasesAdmin extends React.Component {
                               });
                            }}
                         >
-                           {this.props.adminAccount.userName}
+                           {this.props.adminAccount.name}
                         </h6>
                      </div>
                      <div className="d-inline col-1 pr-2 mt-1">

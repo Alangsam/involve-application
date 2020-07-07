@@ -1,8 +1,8 @@
 const selectUserById = `
         SELECT 
-           id, email, created_date
+           id, name, organization, email, created_date
         FROM
-        involve_app.users
+            involve_app.users
         WHERE
             id = ?
         LIMIT 1;
