@@ -14,6 +14,10 @@ class Login extends React.Component {
          createPasswordError: "",
          createEmailHasError: false,
          createEmailError: "",
+         passwordHasError: false,
+         passwordError: "",
+         emailHasError: false,
+         emailError: "",
       };
    }
    //    isTheEmailValidOrganization = () => {
@@ -86,6 +90,53 @@ class Login extends React.Component {
             }
          });
    }
+   loginUser() {
+      const inputedEmail = document.getElementById("email-login").value;
+      const inputedPassword = document.getElementById("password-login").value;
+
+      const user = {
+         email: inputedEmail,
+         password: inputedPassword,
+      };
+      axios
+         .post("/api/v1/users/auth", user)
+         .then((res) => {
+            // handle success
+            this.props.dispatch({
+               type: actions.STORE_CURRENT_ADMIN,
+               payload: res.data,
+            });
+            console.log(res.data);
+            this.props.history.push("/all-cases-admin");
+         })
+         .catch((err) => {
+            const { data } = err.response;
+            console.log(data);
+            const { emailError, passwordError } = data;
+            if (emailError !== "") {
+               this.setState({
+                  emailHasError: true,
+                  emailError: emailError,
+               });
+            } else {
+               this.setState({
+                  emailHasError: false,
+                  emailError: emailError,
+               });
+            }
+            if (passwordError !== "") {
+               this.setState({
+                  passwordHasError: true,
+                  passwordError: passwordError,
+               });
+            } else {
+               this.setState({
+                  passwordHasError: false,
+                  passwordError: passwordError,
+               });
+            }
+         });
+   }
 
    render() {
       return (
@@ -114,24 +165,44 @@ class Login extends React.Component {
                                  id="email-login"
                                  className=" form-control"
                               ></input>
+                              {this.state.emailHasError && (
+                                 <div
+                                    htmlFor="email-login"
+                                    id="you-have-enter-email"
+                                    className="text-danger"
+                                 >
+                                    {this.state.emailError}
+                                 </div>
+                              )}
                               <label
                                  htmlFor="password-login"
                                  className="text-center pt-2"
                               >
                                  Password
                               </label>
+                              {this.state.passwordHasError && (
+                                 <div
+                                    htmlFor="password-login"
+                                    id="you-have-to-enter-password"
+                                    className="text-danger"
+                                 >
+                                    {this.state.passwordError}
+                                 </div>
+                              )}
                               <input
                                  id="password-login"
                                  className=" form-control"
                               ></input>
                            </form>
-                           <Link
-                              to="/all-cases-admin"
+                           <button
+                              to=""
                               className="btn btn-dark"
-                              onClick={() => {}}
+                              onClick={() => {
+                                 this.loginUser();
+                              }}
                            >
                               Login
-                           </Link>
+                           </button>
                         </div>
                      </div>
                      <div className="card bg-white d-lg-inline-block float-right col-lg-4 ">
