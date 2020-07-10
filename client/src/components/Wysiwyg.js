@@ -1,12 +1,22 @@
 import React, { Component } from "react";
-import { Editor, EditorState, RichUtils } from "draft-js";
+import {
+   Editor,
+   EditorState,
+   RichUtils,
+   getCurrentContent,
+   ContentState,
+   convertToRaw,
+} from "draft-js";
 import { connect } from "react-redux";
+import actions from "../store/actions";
 
 class Wysiwyg extends Component {
    constructor(props) {
       super(props);
       this.state = {
          editorState: EditorState.createEmpty(),
+         placeholderExists: this.props.placeholderExists,
+         objectForStorage: {},
       };
       this.focus = () => this.refs.editor.focus();
       this.onChange = (editorState) => this.setState({ editorState });
@@ -19,6 +29,13 @@ class Wysiwyg extends Component {
       );
    }
 
+   sendWysiwygToStore() {
+      this.props.dispatch({
+         type: actions.STORE_WYSIWYG,
+         payload: this.state.objectForStorage,
+      });
+   }
+
    render() {
       const { editorState } = this.state;
 
@@ -27,26 +44,43 @@ class Wysiwyg extends Component {
       // eslint-disable-next-line
 
       return (
-         <div
-            onClick={(e) => {
-               console.log(e.target);
-            }}
-         >
-            <div className="RichEditor-root pb-6">
+         <div id="case-description-input">
+            <div className="RichEditor-root">
                <InlineStyleControls
                   editorState={editorState}
                   onToggle={this.toggleInlineStyle}
                />
                <Editor
+                  id="case-description-input"
                   editorState={this.state.editorState}
                   onChange={this.onChange}
                   customStyleMap={styleMap}
                   spellCheck={true}
                   placeholder={
+                     this.state.placeholderExists &&
                      this.props.allCases[this.props.indexOfSelectedCase]
                         .description
                   }
                />
+               <button
+                  className="btn-dark w-100 rounded-bottom"
+                  type="submit"
+                  onClick={async () => {
+                     await this.setState({
+                        objectForStorage: this.state.editorState.getCurrentContent(),
+                     });
+                     this.sendWysiwygToStore();
+                     console.log(
+                        this.state.editorState
+                           .getCurrentContent()
+                           .getPlainText(),
+                        this.state.objectForStorage,
+                        convertToRaw(this.state.objectForStorage)
+                     );
+                  }}
+               >
+                  Save
+               </button>
             </div>
          </div>
       );
@@ -123,6 +157,7 @@ function mapStateToProps(state) {
       indexOfSelectedCase: state.indexOfSelectedCase,
       allCases: state.allCases,
       adminAccount: state.adminAccount,
+      wysiwygState: state.wysiwygState,
    };
 }
 
