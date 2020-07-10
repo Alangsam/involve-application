@@ -81,7 +81,7 @@ class Wysiwyg extends Component {
                      //    convertToRaw(this.state.objectForStorage)
                      // );
                      console.log(
-                        stateToHTML(this.state.editorState.getCurrentContent()),
+                        //stateToHTML(this.state.editorState.getCurrentContent()),
                         this.state.editorState.getCurrentContent()
                      );
                   }}
