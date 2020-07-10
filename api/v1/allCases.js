@@ -4,6 +4,7 @@ const db = require("../../db");
 const allCases = require("../../queries/allCases");
 const dataBaseConnections = require("../../db");
 const insertCase = require("../../queries/insertCase");
+const { removeFirstAndFinalIndex } = require("../../utils/helpers");
 
 //@route        GET api/v1/users
 //@desc         GET all memory cards for a user by search term and order
@@ -56,7 +57,9 @@ router.post("/", (req, res) => {
    };
    dataBaseConnections
       .query(insertCase, newCase)
-      .then(() => {})
+      .then((res) => {
+         console.log(req.body);
+      })
       .catch((err) => {
          console.log(err);
          dbError = `${err.code} ${err.sqlMessage}`;

@@ -28,7 +28,7 @@ class CreateCase extends React.Component {
          title: name,
          imageUrl: imageUrl,
          subTitle: subTitle,
-         description: JSON.stringify(description),
+         description: description,
          createdAt: Date.now(),
          lastUpdatedAt: Date.now(),
          updatedByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",

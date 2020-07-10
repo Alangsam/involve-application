@@ -3,12 +3,19 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import actions from "../store/actions";
 
+const parser = new DOMParser();
+
 class CaseOverview extends React.Component {
    constructor(props) {
       super(props);
    }
 
    truncateDescription() {
+      // const htmlDoc = parser.parseFromString(
+      //    this.props.description,
+      //    "text/xml"
+      // );
+      // console.log(htmlDoc, this.props.description);
       if (this.props.description.length > 150) {
          let truncatedString = "";
          truncatedString = this.props.description.slice(0, 150) + "...";
@@ -40,7 +47,10 @@ class CaseOverview extends React.Component {
                />
             </div>
 
-            <h5 className="text-center">{this.truncateDescription()}</h5>
+            <h5
+               className="text-center"
+               dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}
+            ></h5>
             <h6 className="">
                <b>posted by {this.props.user} on jan/1/20 at 11:11pm</b>
             </h6>

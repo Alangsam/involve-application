@@ -7,6 +7,7 @@ import {
    ContentState,
    convertToRaw,
 } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
 import { connect } from "react-redux";
 import actions from "../store/actions";
 
@@ -67,15 +68,20 @@ class Wysiwyg extends Component {
                   type="submit"
                   onClick={async () => {
                      await this.setState({
-                        objectForStorage: this.state.editorState.getCurrentContent(),
+                        objectForStorage: stateToHTML(
+                           this.state.editorState.getCurrentContent()
+                        ),
                      });
                      this.sendWysiwygToStore();
+                     // console.log(
+                     //    this.state.editorState
+                     //       .getCurrentContent()
+                     //       .getPlainText(),
+                     //    this.state.objectForStorage,
+                     //    convertToRaw(this.state.objectForStorage)
+                     // );
                      console.log(
-                        this.state.editorState
-                           .getCurrentContent()
-                           .getPlainText(),
-                        this.state.objectForStorage,
-                        convertToRaw(this.state.objectForStorage)
+                        stateToHTML(this.state.editorState.getCurrentContent())
                      );
                   }}
                >

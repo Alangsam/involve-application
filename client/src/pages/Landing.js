@@ -28,6 +28,13 @@ class Landing extends React.Component {
                type: actions.STORE_ALL_CASES,
                payload: response.data,
             });
+            let parser = new DOMParser();
+            let parsedHtml = parser.parseFromString(
+               response.data[1].description,
+               "text/html"
+            );
+            console.log(response.data[1].description);
+            console.log(parsedHtml);
          })
          .catch((error) => {
             // handle error
@@ -59,6 +66,7 @@ class Landing extends React.Component {
          this.setState({ emailNotApprovedOrgWarning: "none" });
       }
    };
+   convertDescriptionToHTML() {}
 
    render() {
       //const props = this.props;
@@ -112,6 +120,13 @@ class Landing extends React.Component {
                      <div>
                         {this.props.allCases.length > 0 &&
                            this.props.allCases.map((object, index) => {
+                              // let parser = new DOMParser();
+                              // let parsedHtml = parser.parseFromString(
+                              //    object.description,
+                              //    "text/html"
+                              // );
+                              // console.log(parsedHtml);
+                              //console.log(parsedHtml);
                               const url = object.imageUrl;
                               const name = object.title;
                               const description = object.description;

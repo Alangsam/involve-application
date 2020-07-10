@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 
 module.exports = {
+   removeFirstAndFinalIndex(string) {
+      const newString = string.slice(2, string.length - 2);
+   },
+
    toJson(data) {
       return JSON.stringify(data);
    },
