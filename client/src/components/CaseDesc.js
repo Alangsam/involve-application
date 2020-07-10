@@ -37,7 +37,11 @@ class CaseDesc extends React.Component {
                </div>
                <div className="clearfix"></div>
                <div id="left-text" className="col-8">
-                  <p>{exampleCase.description}</p>
+                  <p
+                     dangerouslySetInnerHTML={{
+                        __html: exampleCase.description,
+                     }}
+                  ></p>
                </div>
                <div id="right-text" className="col-4">
                   <ContactInfo case={exampleCase} />
