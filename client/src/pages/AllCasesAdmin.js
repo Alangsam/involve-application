@@ -21,15 +21,15 @@ class AllCasesAdmin extends React.Component {
 
    componentDidMount() {
       this.setCases();
-      this.setUserCases();
+      //this.setUserCases();
    }
 
-   setOrder(e) {
-      const newOrder = e.target.value;
-      this.setState({ order: newOrder }, () => {
-         this.setUserCases();
-      });
-   }
+   // setOrder(e) {
+   //    const newOrder = e.target.value;
+   //    this.setState({ order: newOrder }, () => {
+   //       this.setUserCases();
+   //    });
+   // }
 
    setSearchTerm() {
       const searchInput = document.getElementById("search-cases").value;
