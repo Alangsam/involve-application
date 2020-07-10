@@ -4,6 +4,38 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class CaseFileEdit extends React.Component {
+   // saveAllAndEnterToDb() {
+   //    const name = document.getElementById("case-name-input").value;
+   //    const imageUrl = document.getElementById("case-image-url-input").value;
+   //    const subTitle = document.getElementById("case-subtitle-input").value;
+   //    const description = this.props.wysiwygState;
+   //    const contactName = document.getElementById("contact-name-input").value;
+   //    const contactPhone = document.getElementById("contact-phone-input").value;
+   //    const contactEmail = document.getElementById("contact-email-input").value;
+   //    const newCase = {
+   //       id: getUuid(),
+   //       title: name,
+   //       imageUrl: imageUrl,
+   //       subTitle: subTitle,
+   //       description: description,
+   //       createdAt: Date.now(),
+   //       lastUpdatedAt: Date.now(),
+   //       updatedByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
+   //       createdByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
+   //       contactName: contactName,
+   //       contactPhone: contactPhone,
+   //       contactEmail: contactEmail,
+   //    };
+   //    axios
+   //       .post("/api/v1/allCases", newCase)
+   //       .then((res) => {
+   //          console.log(newCase);
+   //       })
+   //       .catch((err) => {
+   //          console.log(err);
+   //       });
+   // }
+
    render() {
       return (
          <div>

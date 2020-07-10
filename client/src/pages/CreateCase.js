@@ -16,6 +16,7 @@ class CreateCase extends React.Component {
    //     e.target.value;
    // }
    saveAllAndEnterToDb() {
+      const id = this.props.adminAccount.id;
       const name = document.getElementById("case-name-input").value;
       const imageUrl = document.getElementById("case-image-url-input").value;
       const subTitle = document.getElementById("case-subtitle-input").value;
@@ -31,8 +32,8 @@ class CreateCase extends React.Component {
          description: description,
          createdAt: Date.now(),
          lastUpdatedAt: Date.now(),
-         updatedByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
-         createdByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
+         updatedByUserId: id,
+         createdByUserId: id,
          contactName: contactName,
          contactPhone: contactPhone,
          contactEmail: contactEmail,
@@ -40,11 +41,13 @@ class CreateCase extends React.Component {
       axios
          .post("/api/v1/allCases", newCase)
          .then((res) => {
+            console.log(res);
             console.log(newCase);
          })
          .catch((err) => {
             console.log(err);
          });
+      this.props.history.push("/all-cases-admin");
    }
 
    render() {

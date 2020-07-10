@@ -6,7 +6,6 @@ import CaseOverview from "../components/CaseOverview";
 import { connect } from "react-redux";
 import axios from "axios";
 import actions from "../store/actions";
-const userId = "0e6672ac-77e8-4da1-b079-2efbaaaa5b24";
 
 class AllCasesAdmin extends React.Component {
    constructor(props) {
@@ -57,7 +56,8 @@ class AllCasesAdmin extends React.Component {
             console.log(error);
          });
    }
-   setUserCases() {
+   async setUserCases() {
+      const userId = await this.props.adminAccount.id;
       axios
          .get(
             `/api/v1/cases?userId=${userId}&searchTerm=${this.state.searchTerm}&order=${this.state.order}`
