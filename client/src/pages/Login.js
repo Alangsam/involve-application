@@ -10,10 +10,12 @@ class Login extends React.Component {
    constructor() {
       super();
       this.state = {
-         createPasswordHasError: false,
-         createPasswordError: "",
+         createOrgHasError: false,
+         createOrgError: "",
          createEmailHasError: false,
          createEmailError: "",
+         createPasswordHasError: false,
+         createPasswordError: "",
          passwordHasError: false,
          passwordError: "",
          emailHasError: false,
@@ -65,7 +67,18 @@ class Login extends React.Component {
          .catch((err) => {
             const { data } = err.response;
             console.log(data);
-            const { emailError, passwordError } = data;
+            const { orgError, emailError, passwordError } = data;
+            if (orgError !== "") {
+               this.setState({
+                  createOrgHasError: true,
+                  createOrgError: orgError,
+               });
+            } else {
+               this.setState({
+                  createOrgHasError: false,
+                  createOrgError: orgError,
+               });
+            }
             if (emailError !== "") {
                this.setState({
                   createEmailHasError: true,
@@ -220,6 +233,15 @@ class Login extends React.Component {
                                  className=" form-control"
                               ></input>
                               <label htmlFor="email-create">Organization</label>
+                              {this.state.createOrgHasError && (
+                                 <div
+                                    htmlFor="organization-create"
+                                    id="you-have-to-enter-something-organization"
+                                    className="text-danger"
+                                 >
+                                    {this.state.createOrgError}
+                                 </div>
+                              )}
                               <input
                                  id="organization-create"
                                  className=" form-control"
