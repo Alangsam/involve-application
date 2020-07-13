@@ -6,23 +6,40 @@ import {
    getCurrentContent,
    ContentState,
    convertToRaw,
+   convertFromHTML,
 } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { stateFromHTML } from "draft-js-import-html";
 import { connect } from "react-redux";
 import actions from "../store/actions";
 
-class Wysiwyg extends Component {
+class WysiwygEdit extends Component {
    constructor(props) {
       super(props);
+      const sampleMarkup = this.props.allCases[this.props.indexOfSelectedCase]
+         .description;
+      const blocksFromHTML = convertFromHTML(sampleMarkup);
+      const stateForCreation = ContentState.createFromBlockArray(
+         blocksFromHTML.contentBlocks,
+         blocksFromHTML.entityMap
+      );
       this.state = {
-         editorState: EditorState.createEmpty(),
+         editorState: EditorState.createWithContent(stateForCreation),
          placeholderExists: this.props.placeholderExists,
          objectForStorage: {},
       };
       this.focus = () => this.refs.editor.focus();
       this.onChange = (editorState) => this.setState({ editorState });
       this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+   }
+
+   componentDidMount() {
+      this.props.dispatch({
+         type: actions.STORE_WYSIWYG,
+         payload: this.props.allCases[this.props.indexOfSelectedCase]
+            .description,
+      });
+      console.log("what is happening");
    }
 
    _toggleInlineStyle(inlineStyle) {
@@ -74,13 +91,6 @@ class Wysiwyg extends Component {
                         ),
                      });
                      this.sendWysiwygToStore();
-                     // console.log(
-                     //    this.state.editorState
-                     //       .getCurrentContent()
-                     //       .getPlainText(),
-                     //    this.state.objectForStorage,
-                     //    convertToRaw(this.state.objectForStorage)
-                     // );
                      console.log(
                         //stateToHTML(this.state.editorState.getCurrentContent()),
                         this.state.editorState.getCurrentContent()
@@ -169,4 +179,4 @@ function mapStateToProps(state) {
    };
 }
 
-export default connect(mapStateToProps)(Wysiwyg);
+export default connect(mapStateToProps)(WysiwygEdit);

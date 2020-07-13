@@ -1,40 +1,51 @@
 import React from "react";
-import Wysiwyg from "../components/Wysiwyg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import WysiwygEdit from "../components/WysiwygEdit";
+import axios from "axios";
+import { v4 as getUuid } from "uuid";
 
 class CaseFileEdit extends React.Component {
-   // saveAllAndEnterToDb() {
-   //    const name = document.getElementById("case-name-input").value;
-   //    const imageUrl = document.getElementById("case-image-url-input").value;
-   //    const subTitle = document.getElementById("case-subtitle-input").value;
-   //    const description = this.props.wysiwygState;
-   //    const contactName = document.getElementById("contact-name-input").value;
-   //    const contactPhone = document.getElementById("contact-phone-input").value;
-   //    const contactEmail = document.getElementById("contact-email-input").value;
-   //    const newCase = {
-   //       id: getUuid(),
-   //       title: name,
-   //       imageUrl: imageUrl,
-   //       subTitle: subTitle,
-   //       description: description,
-   //       createdAt: Date.now(),
-   //       lastUpdatedAt: Date.now(),
-   //       updatedByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
-   //       createdByUserId: "0e6672ac-77e8-4da1-b079-2efbaaaa5b24",
-   //       contactName: contactName,
-   //       contactPhone: contactPhone,
-   //       contactEmail: contactEmail,
-   //    };
-   //    axios
-   //       .post("/api/v1/allCases", newCase)
-   //       .then((res) => {
-   //          console.log(newCase);
-   //       })
-   //       .catch((err) => {
-   //          console.log(err);
-   //       });
-   // }
+   saveAllAndEnterToDb() {
+      const id = this.props.adminAccount.id;
+      const caseId = this.props.allCases[this.props.indexOfSelectedCase].id;
+      const name = document.getElementById("case-name-input").value;
+      const imageUrl = document.getElementById("case-image-url-input").value;
+      const subTitle = document.getElementById("case-subtitle-input").value;
+      const description = this.props.wysiwygState;
+      const createdAt = this.props.allCases[this.props.indexOfSelectedCase]
+         .createdAt;
+      const createdByUserId = this.props.allCases[
+         this.props.indexOfSelectedCase
+      ].createdByUserId;
+      const contactName = document.getElementById("contact-name-input").value;
+      const contactPhone = document.getElementById("contact-phone-input").value;
+      const contactEmail = document.getElementById("contact-email-input").value;
+      const newCase = {
+         id: caseId,
+         title: name,
+         imageUrl: imageUrl,
+         subTitle: subTitle,
+         description: description,
+         createdAt: createdAt,
+         lastUpdatedAt: Date.now(),
+         updatedByUserId: id,
+         createdByUserId: createdByUserId,
+         contactName: contactName,
+         contactPhone: contactPhone,
+         contactEmail: contactEmail,
+      };
+      axios
+         .post("/api/v1/allCases/edit", newCase)
+         .then((res) => {
+            console.log(res);
+            console.log(newCase);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+      this.props.history.push("/all-cases-admin");
+   }
 
    render() {
       return (
@@ -61,6 +72,7 @@ class CaseFileEdit extends React.Component {
                         </label>
                         <input
                            className="form-control"
+                           id="case-name-input"
                            defaultValue={
                               this.props.allCases[
                                  this.props.indexOfSelectedCase
@@ -82,6 +94,7 @@ class CaseFileEdit extends React.Component {
                            className="form-control-file"
                         ></input>
                         <input
+                           id="case-image-url-input"
                            className="form-control"
                            defaultValue={
                               this.props.allCases[
@@ -102,6 +115,7 @@ class CaseFileEdit extends React.Component {
                            <h5>What Needs Involvement</h5>
                         </label>
                         <input
+                           id="case-subtitle-input"
                            className="form-control"
                            defaultValue={
                               this.props.allCases[
@@ -117,30 +131,13 @@ class CaseFileEdit extends React.Component {
                         </button>
                      </div>
                      <div className="clearfix py-4"></div>
-                     <div className="offset-md-3 col-md-6 pb-4 text-center">
-                        <label className="text-center" htmlFor="text-editor">
-                           Background information
-                        </label>
-                        <div
-                           id="text-editor"
-                           className="border border-bottom-0 rounded-top border-dark"
-                        >
-                           <Wysiwyg></Wysiwyg>
-                        </div>
-                        <button
-                           className="btn-dark w-100 rounded-bottom"
-                           type="submit"
-                        >
-                           Save
-                        </button>
-                     </div>
                      <div className="text-center">
                         <div className="col-lg-4 col-6 d-inline-block">
                            <label className="text-center">
                               <h5>Contact Name</h5>
                            </label>
                            <input
-                              id="Title-1"
+                              id="contact-name-input"
                               className="form-control "
                               defaultValue={
                                  this.props.allCases[
@@ -152,7 +149,7 @@ class CaseFileEdit extends React.Component {
                               <h5>Contact Phone</h5>
                            </label>
                            <input
-                              id="Title-2"
+                              id="contact-phone-input"
                               className="form-control "
                               defaultValue={
                                  this.props.allCases[
@@ -164,7 +161,7 @@ class CaseFileEdit extends React.Component {
                               <h5>Contact Email</h5>
                            </label>
                            <input
-                              id="Title-3"
+                              id="contact-email-input"
                               className="form-control "
                               defaultValue={
                                  this.props.allCases[
@@ -182,11 +179,26 @@ class CaseFileEdit extends React.Component {
                            Save
                         </button>
                      </div>
+                     <div className="clearfix py-4"></div>
+                     <div className="offset-md-3 col-md-6 pb-4 text-center">
+                        <label className="text-center" htmlFor="text-editor">
+                           Background information
+                        </label>
+                        <div
+                           id="text-editor"
+                           className="border border-bottom-0 rounded-top border-dark"
+                        >
+                           <WysiwygEdit></WysiwygEdit>
+                        </div>
+                     </div>
 
                      <div className="col-md-6 offset-md-3 text-center py-7">
                         <button
                            className="btn btn-danger w-100 mt-2 p-4"
                            type="submit"
+                           onClick={() => {
+                              this.saveAllAndEnterToDb();
+                           }}
                         >
                            <h4>SAVE ALL</h4>
                         </button>
@@ -204,6 +216,7 @@ function mapStateToProps(state) {
       indexOfSelectedCase: state.indexOfSelectedCase,
       allCases: state.allCases,
       adminAccount: state.adminAccount,
+      wysiwygState: state.wysiwygState,
    };
 }
 

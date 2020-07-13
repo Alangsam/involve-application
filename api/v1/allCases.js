@@ -5,6 +5,7 @@ const allCases = require("../../queries/allCases");
 const dataBaseConnections = require("../../db");
 const insertCase = require("../../queries/insertCase");
 const { removeFirstAndFinalIndex } = require("../../utils/helpers");
+const updateCaseById = require("../../queries/updateCaseById");
 
 //@route        GET api/v1/users
 //@desc         GET all memory cards for a user by search term and order
@@ -57,6 +58,48 @@ router.post("/", (req, res) => {
    };
    dataBaseConnections
       .query(insertCase, newCase)
+      .then((res) => {
+         console.log(req.body);
+      })
+      .catch((err) => {
+         console.log(err);
+         dbError = `${err.code} ${err.sqlMessage}`;
+         res.status(400).json({ dbError });
+      });
+});
+
+router.post("/edit", (req, res) => {
+   //need to make sure case name doesnt already exist(server side)
+   //need to add validation(no blanks, character counter)(front end)
+   const {
+      id,
+      title,
+      imageUrl,
+      subTitle,
+      description,
+      createdAt,
+      lastUpdatedAt,
+      updatedByUserId,
+      createdByUserId,
+      contactName,
+      contactPhone,
+      contactEmail,
+   } = req.body;
+   dataBaseConnections
+      .query(updateCaseById, [
+         title,
+         imageUrl,
+         subTitle,
+         description,
+         createdAt,
+         lastUpdatedAt,
+         updatedByUserId,
+         createdByUserId,
+         contactName,
+         contactPhone,
+         contactEmail,
+         id,
+      ])
       .then((res) => {
          console.log(req.body);
       })
