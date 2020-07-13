@@ -27,7 +27,7 @@ function checkIsInDataBase(email) {
    return dataBaseConnections
       .query(selectUserByEmail, email)
       .then((users) => {
-         console.log(users);
+         //console.log(users);
          if (users.length === 0) {
             return false;
          } else return true;
@@ -41,7 +41,7 @@ function checkDomainMatchesOrg(domain, organization) {
       .query(selectOrgNameByDomain, domain)
       .then((orgReturned) => {
          if (orgReturned.length > 0) {
-            console.log(orgReturned[0].name);
+            //console.log(orgReturned[0].name);
             if (
                orgReturned[0].name.toLowerCase() === organization.toLowerCase()
             ) {

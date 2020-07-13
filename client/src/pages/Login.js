@@ -10,6 +10,8 @@ class Login extends React.Component {
    constructor() {
       super();
       this.state = {
+         createNameHasError: false,
+         createNameError: "",
          createOrgHasError: false,
          createOrgError: "",
          createEmailHasError: false,
@@ -22,16 +24,6 @@ class Login extends React.Component {
          emailError: "",
       };
    }
-   //    isTheEmailValidOrganization = () => {
-   //       const listOfOrgs = approvedOrgs.map((things) => things.domain);
-   //       const newEmailValue = document.getElementById("email-create").value;
-   //       const emailOnlyDomain = String(newEmailValue.match(/(?<=@).*/gi));
-   //       if (listOfOrgs.indexOf(emailOnlyDomain) === -1) {
-   //          this.setState({ emailNotApprovedOrgWarning: false });
-   //       } else {
-   //          this.setState({ emailNotApprovedOrgWarning: true });
-   //       }
-   //    };
    validateAndStoreAdminInfo() {
       const adminAccount = {
          userName: "paulasanchez10",
@@ -67,7 +59,18 @@ class Login extends React.Component {
          .catch((err) => {
             const { data } = err.response;
             console.log(data);
-            const { orgError, emailError, passwordError } = data;
+            const { userNameError, orgError, emailError, passwordError } = data;
+            if (userNameError !== "") {
+               this.setState({
+                  createNameHasError: true,
+                  createNameError: userNameError,
+               });
+            } else {
+               this.setState({
+                  createNameHasError: false,
+                  createNameError: userNameError,
+               });
+            }
             if (orgError !== "") {
                this.setState({
                   createOrgHasError: true,
@@ -228,6 +231,15 @@ class Login extends React.Component {
                            </h5>
                            <form className="form-group text-center">
                               <label htmlFor="name-create">Username</label>
+                              {this.state.createNameHasError && (
+                                 <div
+                                    htmlFor="userName-create"
+                                    id="you-have-to-enter-something-userName"
+                                    className="text-danger"
+                                 >
+                                    {this.state.createNameError}
+                                 </div>
+                              )}
                               <input
                                  id="name-create"
                                  className=" form-control"

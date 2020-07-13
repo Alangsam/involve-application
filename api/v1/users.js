@@ -10,17 +10,24 @@ const getLoginEmailError = require("../../validation/getLoginEmailError");
 const getLoginPasswordError = require("../../validation/getLoginPasswordError");
 const getSignUpOrganizationError = require("../../validation/getSignUpOrganizationError");
 const selectUserByEmail = require("../../queries/selectUserByEmail");
+const getSignUpUsernameError = require("../../validation/getSignUpUsernameError");
 
 //@route        POST api/v1/users
 //@desc         Create a new user
 //@access       Public
 router.post("/", async (req, res) => {
    const { id, name, organization, email, password, created_date } = req.body;
+   const userNameError = await getSignUpUsernameError(name);
    const orgError = await getSignUpOrganizationError(organization);
    const emailError = await getSignUpEmailError(email, organization);
    const passwordError = await getSignUpPasswordError(password, email);
    let dbError = "";
-   if (emailError === "" && passwordError === "" && orgError === "") {
+   if (
+      emailError === "" &&
+      passwordError === "" &&
+      orgError === "" &&
+      userNameError === ""
+   ) {
       const user = {
          id,
          name,
@@ -56,7 +63,12 @@ router.post("/", async (req, res) => {
             res.status(400).json({ dbError });
          });
    } else {
-      res.status(400).json({ orgError, emailError, passwordError });
+      res.status(400).json({
+         userNameError,
+         orgError,
+         emailError,
+         passwordError,
+      });
    }
 });
 
