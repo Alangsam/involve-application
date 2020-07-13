@@ -16,9 +16,10 @@ module.exports = async function getSignUpEmailError(email, organization) {
    if (await checkIsInDataBase(email)) {
       return "This email address already exists";
    }
-   // if (await checkDomainMatchesOrg(domain, organization)) {
-   //    return "This email isn't associated with that Organization";
-   // }
+   if (await checkDomainMatchesOrg(domain, organization)) {
+      console.log(domain);
+      return "This email isn't associated with that Organization";
+   }
    return "";
 };
 
@@ -35,28 +36,20 @@ function checkIsInDataBase(email) {
          console.log(err);
       });
 }
-// function checkDomainMatchesOrg(domain, organization) {
-//    return dataBaseConnections
-//       .query(selectOrgByName, organization)
-//       .then((name) => {
-//          console.log(name);
-//          if (name.length === 0) {
-//             dataBaseConnections
-//                .query(selectOrgNameByDomain, domain)
-//                .then((orgName) => {
-//                   console.log(orgName);
-//                   if (orgName) {
-//                      if (orgName.toLowerCase() === organization.toLowerCase()) {
-//                         return false;
-//                      } else return true;
-//                   } else return true;
-//                })
-//                .catch((err) => {
-//                   console.log(err);
-//                });
-//          } else return true;
-//       })
-//       .catch((err) => {
-//          console.log(err);
-//       });
-// }
+function checkDomainMatchesOrg(domain, organization) {
+   return dataBaseConnections
+      .query(selectOrgNameByDomain, domain)
+      .then((orgReturned) => {
+         if (orgReturned.length > 0) {
+            console.log(orgReturned[0].name);
+            if (
+               orgReturned[0].name.toLowerCase() === organization.toLowerCase()
+            ) {
+               return false;
+            } else return true;
+         } else return true;
+      })
+      .catch((error) => {
+         console.log(error);
+      });
+}

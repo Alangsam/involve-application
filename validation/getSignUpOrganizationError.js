@@ -15,7 +15,6 @@ function checkIsInDataBase(organization) {
    return dataBaseConnections
       .query(selectOrgByName, organization)
       .then((name) => {
-         console.log(name);
          if (name.length === 0) {
             return false;
          } else return true;

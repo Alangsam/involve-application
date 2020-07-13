@@ -1,6 +1,6 @@
 const selectOrgNameByDomain = `
         SELECT 
-           name
+           \`name\`
         FROM
         involve_app.organizations
         WHERE

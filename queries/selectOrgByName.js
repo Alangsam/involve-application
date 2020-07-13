@@ -1,10 +1,10 @@
 const selectOrgByName = `
         SELECT 
-           name
+           \`name\`
         FROM
         involve_app.organizations
         WHERE
-            name = ?
+            \`name\` = ?
         LIMIT 1;
     `;
 module.exports = selectOrgByName;
