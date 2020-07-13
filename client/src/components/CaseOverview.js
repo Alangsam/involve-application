@@ -43,7 +43,7 @@ class CaseOverview extends React.Component {
                <img
                   src={this.props.url}
                   alt="forgot this dudes name"
-                  className="thumb-post rounded-bottom"
+                  className="thumb-post"
                />
             </div>
             <h2 className="text-center bg-dark text-light mb-0">
