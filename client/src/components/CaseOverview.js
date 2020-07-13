@@ -46,6 +46,9 @@ class CaseOverview extends React.Component {
                   className="thumb-post rounded-bottom"
                />
             </div>
+            <h2 className="text-center bg-dark text-light mb-0">
+               {this.props.subTitle}
+            </h2>
 
             <h5
                className="text-center"

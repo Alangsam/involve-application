@@ -129,6 +129,7 @@ class Landing extends React.Component {
                               //console.log(parsedHtml);
                               const url = object.imageUrl;
                               const name = object.title;
+                              const subTitle = object.subTitle;
                               const description = object.description;
                               const user = object.id;
                               return (
@@ -137,6 +138,7 @@ class Landing extends React.Component {
                                     id={index}
                                     name={name}
                                     url={url}
+                                    subTitle={subTitle}
                                     description={description}
                                     user={user}
                                  />

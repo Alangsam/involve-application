@@ -186,6 +186,7 @@ class AllCasesAdmin extends React.Component {
                               this.state.cases.map((object, index) => {
                                  const url = object.imageUrl;
                                  const name = object.title;
+                                 const subTitle = object.subTitle;
                                  const description = object.description;
                                  const user = object.updatedByUserId;
 
@@ -198,6 +199,7 @@ class AllCasesAdmin extends React.Component {
                                           key={Math.random()}
                                           id={index}
                                           name={name}
+                                          subTitle={subTitle}
                                           url={url}
                                           description={description}
                                           user={user}
