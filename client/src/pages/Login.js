@@ -176,7 +176,7 @@ class Login extends React.Component {
                               Login, Inform People
                            </h5>
                            <form className="form-group text-center">
-                              <label htmlFor="email-login">Unique Name</label>
+                              <label htmlFor="email-login">Email</label>
                               <input
                                  id="email-login"
                                  className=" form-control"

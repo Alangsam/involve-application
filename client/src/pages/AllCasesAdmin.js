@@ -11,7 +11,7 @@ class AllCasesAdmin extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         order: "cases.created_at%20DESC",
+         order: "cases.title%20ASC",
          cases: [],
          searchTerm: "",
          userCases: [],
@@ -20,26 +20,53 @@ class AllCasesAdmin extends React.Component {
    }
 
    componentDidMount() {
-      this.setCases();
-      //this.setUserCases();
+      if (this.state.usingAllCases) {
+         this.setCases();
+      } else {
+         this.setUserCases();
+      }
    }
 
-   // setOrder(e) {
-   //    const newOrder = e.target.value;
-   //    this.setState({ order: newOrder }, () => {
-   //       this.setUserCases();
-   //    });
-   // }
+   setOrder(e) {
+      const newOrder = e.target.value;
+      if (this.state.usingAllCases) {
+         this.setState({ order: newOrder }, () => {
+            this.setCases();
+         });
+      } else {
+         this.setState({ order: newOrder }, () => {
+            this.setUserCases();
+         });
+      }
+   }
+   addEnterListener() {
+      const input = document.getElementById("search-cases");
+      input.addEventListener("keyup", function (event) {
+         if (event.keyCode === 13) {
+            event.preventDefault();
+            console.log(document.getElementById("search-button"));
+            document.getElementById("search-button").click();
+         }
+      });
+   }
 
    setSearchTerm() {
       const searchInput = document.getElementById("search-cases").value;
-      this.setState({ searchTerm: searchInput }, () => {
-         this.setUserCases();
-      });
+      if (this.state.usingAllCases) {
+         this.setState({ searchTerm: searchInput }, () => {
+            this.setCases();
+         });
+      } else {
+         this.setState({ searchTerm: searchInput }, () => {
+            this.setUserCases();
+         });
+      }
    }
-   setCases() {
+   async setCases() {
       axios
-         .get(`/api/v1/allCases`)
+         .get(
+            `/api/v1/cases?searchTerm=${this.state.searchTerm}&order=${this.state.order}`
+         )
          .then((res) => {
             // handle success
             console.log(res);
@@ -60,7 +87,7 @@ class AllCasesAdmin extends React.Component {
       const userId = await this.props.adminAccount.id;
       axios
          .get(
-            `/api/v1/cases?userId=${userId}&searchTerm=${this.state.searchTerm}&order=${this.state.order}`
+            `/api/v1/cases/userCases?userId=${userId}&searchTerm=${this.state.searchTerm}&order=${this.state.order}`
          )
          .then((res) => {
             // handle success
@@ -80,7 +107,7 @@ class AllCasesAdmin extends React.Component {
    }
    render() {
       return (
-         <div>
+         <div onLoad={() => this.addEnterListener()}>
             <div className="">
                <div className="text-center">
                   <Link to="/" className="btn  pb-0">
@@ -97,20 +124,34 @@ class AllCasesAdmin extends React.Component {
                         <h6
                            className="btn btn-dark"
                            onClick={() => {
-                              this.setState({
-                                 usingAllCases: !this.state.usingAllCases,
-                              });
+                              this.setState(
+                                 {
+                                    usingAllCases: !this.state.usingAllCases,
+                                 },
+                                 () => {
+                                    this.setUserCases();
+                                 }
+                              );
                            }}
                         >
                            {this.props.adminAccount.name}
                         </h6>
                      </div>
-                     <div className="d-inline col-1 pr-2 mt-1">
-                        <FontAwesomeIcon
-                           icon={faSearch}
-                           className="float-right"
-                           size="2x"
-                        />
+                     <div className="d-inline col-1 mt-n1 mr-n3 ml-3">
+                        <button
+                           className="btn"
+                           id="search-button"
+                           onClick={() => {
+                              this.setSearchTerm();
+                           }}
+                        >
+                           <FontAwesomeIcon
+                              type="button"
+                              icon={faSearch}
+                              className="float-right"
+                              size="2x"
+                           />
+                        </button>
                      </div>
                      <div className="col-4 d-inline-block align-bottom">
                         <input
@@ -126,8 +167,8 @@ class AllCasesAdmin extends React.Component {
                               this.setOrder(e);
                            }}
                         >
-                           <option>A-Z</option>
-                           <option>Z-A</option>
+                           <option value="cases.title%20ASC">A-Z</option>
+                           <option value="cases.title%20DESC">Z-A</option>
                            <option value="cases.created_at%20DESC">
                               Most Recent
                            </option>

@@ -4,9 +4,8 @@ const searchedAndOrderedCasesFromDB = `
     FROM
         involve_app.cases
     WHERE
-        cases.updated_by_user_id = ?
-            AND (cases.title LIKE ?
-            OR cases.description LIKE ?)
+        (cases.title LIKE ?
+        OR cases.description LIKE ?)
     ORDER BY
         ?;
     `;
