@@ -199,6 +199,7 @@ class AllCasesAdmin extends React.Component {
                                           key={Math.random()}
                                           id={index}
                                           name={name}
+                                          userId={object.updatedByUserId}
                                           subTitle={subTitle}
                                           url={url}
                                           description={description}
