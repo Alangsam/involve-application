@@ -2,20 +2,32 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import actions from "../store/actions";
+import axios from "axios";
 
 const parser = new DOMParser();
 
 class CaseOverview extends React.Component {
    constructor(props) {
       super(props);
+      this.state = {
+         id: "",
+      };
+   }
+
+   componentDidMount() {
+      axios
+         .get(`/api/v1/users?id=${this.props.userId}`)
+         .then((response) => {
+            console.log(response.data[0].name);
+            this.setState({ id: response.data[0].name });
+         })
+         .catch((error) => {
+            // handle error
+            console.log(error);
+         });
    }
 
    truncateDescription() {
-      // const htmlDoc = parser.parseFromString(
-      //    this.props.description,
-      //    "text/xml"
-      // );
-      // console.log(htmlDoc, this.props.description);
       if (this.props.description.length > 150) {
          let truncatedString = "";
          truncatedString = this.props.description.slice(0, 150) + "...";
@@ -55,7 +67,11 @@ class CaseOverview extends React.Component {
                dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}
             ></h5>
             <h6 className="">
-               <b>posted by {this.props.user} on jan/1/20 at 11:11pm</b>
+               <b>
+                  posted by
+                  {" " + this.state.id + " "}
+                  on jan/1/20 at 11:11pm
+               </b>
             </h6>
             <Link
                to="/case-name"

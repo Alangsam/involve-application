@@ -11,6 +11,7 @@ const getLoginPasswordError = require("../../validation/getLoginPasswordError");
 const getSignUpOrganizationError = require("../../validation/getSignUpOrganizationError");
 const selectUserByEmail = require("../../queries/selectUserByEmail");
 const getSignUpUsernameError = require("../../validation/getSignUpUsernameError");
+const findNameById = require("../../queries/findNameById");
 
 //@route        POST api/v1/users
 //@desc         Create a new user
@@ -102,6 +103,21 @@ router.post("/auth", async (req, res) => {
    } else {
       res.status(400).json({ emailError, passwordError });
    }
+});
+
+router.get("/", (req, res) => {
+   //console.log(req.query);
+   const { id } = req.query;
+   dataBaseConnections
+      .query(findNameById, id)
+      .then((name) => {
+         //console.log(name);
+         return res.json(name);
+      })
+      .catch((err) => {
+         console.log(err);
+         res.status(400).json(err);
+      });
 });
 
 module.exports = router;

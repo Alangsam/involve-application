@@ -28,13 +28,6 @@ class Landing extends React.Component {
                type: actions.STORE_ALL_CASES,
                payload: response.data,
             });
-            let parser = new DOMParser();
-            let parsedHtml = parser.parseFromString(
-               response.data[1].description,
-               "text/html"
-            );
-            console.log(response.data[1].description);
-            console.log(parsedHtml);
          })
          .catch((error) => {
             // handle error
@@ -120,13 +113,6 @@ class Landing extends React.Component {
                      <div>
                         {this.props.allCases.length > 0 &&
                            this.props.allCases.map((object, index) => {
-                              // let parser = new DOMParser();
-                              // let parsedHtml = parser.parseFromString(
-                              //    object.description,
-                              //    "text/html"
-                              // );
-                              // console.log(parsedHtml);
-                              //console.log(parsedHtml);
                               const url = object.imageUrl;
                               const name = object.title;
                               const subTitle = object.subTitle;
@@ -136,6 +122,7 @@ class Landing extends React.Component {
                                  <CaseOverview
                                     key={index}
                                     id={index}
+                                    userId={object.updatedByUserId}
                                     name={name}
                                     url={url}
                                     subTitle={subTitle}
