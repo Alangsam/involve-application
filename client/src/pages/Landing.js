@@ -43,12 +43,12 @@ class Landing extends React.Component {
                <div className="row all-v">
                   <div className="col-lg-4">
                      <div
-                        className="d-flex align-items-start flex-column col-lg col-6 sticky-top mx-auto"
+                        className="d-flex align-items-start flex-column col-md-7 col-lg sticky-top mx-auto"
                         style={{ height: "95vh" }}
                      >
                         <div className="card pt-6 bg-transparent border-none">
                            <h1 className="text-center">Involve</h1>
-                           <h4 className="text-center">
+                           <h4 className="text-left">
                               Here you can involve yourself, in all the
                               systematic problems that the public sector has
                               both created and refused to solve
@@ -62,7 +62,7 @@ class Landing extends React.Component {
                                 >
                                     Back To Top
                                 </button> */}
-                        <div className="mt-9 mb-lg-0 mb-9 text-lg-left text-center mt-lg-auto align-bottom">
+                        <div className="mt-9 mb-lg-0 mb-9 text-lg-left text-left mt-lg-auto align-bottom">
                            <h1>IN ° VOLVE</h1>
                            <h3>
                               To cause (a person or group) to experience or
