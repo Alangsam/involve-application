@@ -202,7 +202,7 @@ class AllCasesAdmin extends React.Component {
                                  const subTitle = object.subTitle;
                                  const description = object.description;
                                  const user = object.updatedByUserId;
-
+                                 const updatedAt = object.lastUpdatedAt;
                                  return (
                                     <div
                                        key={Math.random()}
@@ -217,6 +217,7 @@ class AllCasesAdmin extends React.Component {
                                           url={url}
                                           description={description}
                                           user={user}
+                                          updatedAt={updatedAt}
                                        />
                                     </div>
                                  );
@@ -226,9 +227,10 @@ class AllCasesAdmin extends React.Component {
                               this.state.userCases.map((object, index) => {
                                  const url = object.imageUrl;
                                  const name = object.title;
+                                 const subTitle = object.subTitle;
                                  const description = object.description;
                                  const user = object.updatedByUserId;
-
+                                 const updatedAt = object.lastUpdatedAt;
                                  return (
                                     <div
                                        key={Math.random()}
@@ -238,9 +240,12 @@ class AllCasesAdmin extends React.Component {
                                           key={Math.random()}
                                           id={index}
                                           name={name}
+                                          userId={object.updatedByUserId}
+                                          subTitle={subTitle}
                                           url={url}
                                           description={description}
                                           user={user}
+                                          updatedAt={updatedAt}
                                        />
                                     </div>
                                  );
