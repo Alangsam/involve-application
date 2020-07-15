@@ -1,7 +1,6 @@
 import React from "react";
 import CaseOverview from "../components/CaseOverview";
 import "../style/master.scss"; //import my custom bootstrap
-import { approvedOrgs } from "../objects/approvedOrgs";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -35,32 +34,6 @@ class Landing extends React.Component {
          });
    }
 
-   changeDisplayButton = (e) => {
-      if (
-         e.target.id === "sign-in-or-create-button" ||
-         e.target.id === "sign-in-or-create-button-text"
-      ) {
-         this.setState({ buttonDisplay: "none" });
-         this.setState({ cardDisplayLogin: "" });
-         this.setState({ marginBetweenStatementAndCards: "mb-3" });
-      } else if ((e.target.id = "show-create-card-button")) {
-         this.setState({ cardDisplayLogin: "none" });
-         this.setState({ cardDisplayCreate: "" });
-         this.setState({ marginBetweenStatementAndCards: "mb-6" });
-      }
-   };
-   isTheEmailValidOrganization = () => {
-      const listOfOrgs = approvedOrgs.map((things) => things.domain);
-      const newEmailValue = document.getElementById("email-create").value;
-      const emailOnlyDomain = String(newEmailValue.match(/(?<=@).*/gi));
-      if (listOfOrgs.indexOf(emailOnlyDomain) === -1) {
-         this.setState({ emailNotApprovedOrgWarning: "" });
-      } else {
-         this.setState({ emailNotApprovedOrgWarning: "none" });
-      }
-   };
-   convertDescriptionToHTML() {}
-
    render() {
       //const props = this.props;
       console.log(this.props.allCases);
@@ -68,14 +41,12 @@ class Landing extends React.Component {
          <div className="">
             <div className="container">
                <div className="row all-v">
-                  <div className="col-lg-4 mt-6 ">
+                  <div className="col-lg-4">
                      <div
                         className="d-flex align-items-start flex-column col-lg col-6 sticky-top mx-auto"
                         style={{ height: "95vh" }}
                      >
-                        <div
-                           className={`card ${this.state.marginBetweenStatementAndCards} bg-transparent border-none`}
-                        >
+                        <div className="card pt-6 bg-transparent border-none">
                            <h1 className="text-center">Involve</h1>
                            <h4 className="text-center">
                               Here you can involve yourself, in all the
