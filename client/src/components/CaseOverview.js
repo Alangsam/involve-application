@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import actions from "../store/actions";
 import axios from "axios";
+import { format } from "date-fns";
 
 const parser = new DOMParser();
 
@@ -68,9 +69,10 @@ class CaseOverview extends React.Component {
             ></h5>
             <h6 className="">
                <b>
-                  posted by
-                  {" " + this.state.id + " "}
-                  on jan/1/20 at 11:11pm
+                  <b>{this.state.id + " "}</b>
+               </b>
+               <b className="text-muted">
+                  on {format(this.props.updatedAt, "PPPpp")}
                </b>
             </h6>
             <Link

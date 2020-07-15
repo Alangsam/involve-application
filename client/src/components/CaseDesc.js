@@ -1,11 +1,29 @@
 import React from "react";
 import ContactInfo from "./ContactInfo";
 import { connect } from "react-redux";
+import axios from "axios";
+import { format } from "date-fns";
 
 class CaseDesc extends React.Component {
-   constructor() {
-      super();
-      this.state = {};
+   constructor(props) {
+      super(props);
+      this.state = {
+         id: "",
+      };
+   }
+
+   componentDidMount() {
+      const exampleCase = this.props.allCases[this.props.indexOfSelectedCase];
+      axios
+         .get(`/api/v1/users?id=${exampleCase.updatedByUserId}`)
+         .then((response) => {
+            console.log(response.data);
+            this.setState({ id: response.data[0].name });
+         })
+         .catch((error) => {
+            // handle error
+            console.log(error);
+         });
    }
 
    render() {
@@ -27,11 +45,12 @@ class CaseDesc extends React.Component {
                   {/* figure out using capital w what is the most characters someone
                         can put here to maintain a single line */}
                   <div id="last-date-edited">
-                     <h6 className="d-inline-block align-bottom">
-                        <b>{exampleCase.lastUpdatedAt}</b>
+                     <h6 className="">
+                        <b>{this.state.id}</b>
                      </h6>
-                     <h6 className="float-md-right d-inline-block align-bottom">
-                        <b>{exampleCase.updatedByUserId}</b>
+                     <div className="clearfix"></div>
+                     <h6 className="">
+                        <b>{format(exampleCase.lastUpdatedAt, "PPPpp")}</b>
                      </h6>
                   </div>
                </div>

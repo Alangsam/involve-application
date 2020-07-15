@@ -118,6 +118,7 @@ class Landing extends React.Component {
                               const subTitle = object.subTitle;
                               const description = object.description;
                               const user = object.id;
+                              const updatedAt = object.lastUpdatedAt;
                               return (
                                  <CaseOverview
                                     key={index}
@@ -128,6 +129,7 @@ class Landing extends React.Component {
                                     subTitle={subTitle}
                                     description={description}
                                     user={user}
+                                    updatedAt={updatedAt}
                                  />
                               );
                            })}
