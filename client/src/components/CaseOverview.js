@@ -29,9 +29,9 @@ class CaseOverview extends React.Component {
    }
 
    truncateDescription() {
-      if (this.props.description.length > 150) {
+      if (this.props.description.length > 250) {
          let truncatedString = "";
-         truncatedString = this.props.description.slice(0, 150) + "...";
+         truncatedString = this.props.description.slice(0, 250) + "...";
          return truncatedString;
       } else {
          return this.props.description;
@@ -49,7 +49,7 @@ class CaseOverview extends React.Component {
    render() {
       return (
          <div className="card mb-6 bg-transparent">
-            <h2 className="text-center bg-dark text-light mb-0 rounded-top">
+            <h2 className="text-center bg-dark text-light mb-0 rounded-top  py-1">
                {this.props.name}
             </h2>
             <div className="hmmm">
@@ -59,14 +59,14 @@ class CaseOverview extends React.Component {
                   className="thumb-post"
                />
             </div>
-            <h2 className="text-center bg-dark text-light mb-0">
+            <h2 className="text-center bg-dark text-light mb-0 py-1">
                {this.props.subTitle}
             </h2>
 
-            <h5
-               className="text-center"
+            <p
+               className="text-left"
                dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}
-            ></h5>
+            ></p>
             <h6 className="">
                <b>
                   <b>{this.state.id + " "}</b>
