@@ -27,6 +27,13 @@ class AllCasesAdmin extends React.Component {
       }
    }
 
+   logOutCurrentUser() {
+      this.props.dispatch({
+         type: actions.STORE_CURRENT_ADMIN,
+         payload: {},
+      });
+   }
+
    setOrder(e) {
       const newOrder = e.target.value;
       if (this.state.usingAllCases) {
@@ -110,7 +117,13 @@ class AllCasesAdmin extends React.Component {
          <div onLoad={() => this.addEnterListener()}>
             <div className="">
                <div className="text-center">
-                  <Link to="/" className="btn  pb-0">
+                  <Link
+                     to="/"
+                     className="btn  pb-0"
+                     onClick={() => {
+                        this.logOutCurrentUser();
+                     }}
+                  >
                      <h6>Log out</h6>
                   </Link>
                   <Link to="/case-new" className="btn  pb-0">

@@ -6,6 +6,7 @@ const dataBaseConnections = require("../../db");
 const insertCase = require("../../queries/insertCase");
 const { removeFirstAndFinalIndex } = require("../../utils/helpers");
 const updateCaseById = require("../../queries/updateCaseById");
+const validateJwt = require("../../utils/validateJwt");
 
 //@route        GET api/v1/users
 //@desc         GET all memory cards for a user by search term and order
@@ -39,7 +40,7 @@ router.get("/", (req, res) => {
       });
 });
 
-router.post("/", (req, res) => {
+router.post("/", validateJwt, (req, res) => {
    //need to make sure case name doesnt already exist(server side)
    //need to add validation(no blanks, character counter)(front end)
    const newCase = {
@@ -68,7 +69,7 @@ router.post("/", (req, res) => {
       });
 });
 
-router.post("/edit", (req, res) => {
+router.post("/edit", validateJwt, (req, res) => {
    //need to make sure case name doesnt already exist(server side)
    //need to add validation(no blanks, character counter)(front end)
    const {

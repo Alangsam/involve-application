@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import actions from "../store/actions";
 import { v4 as getUuid } from "uuid";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 class Login extends React.Component {
    constructor() {
@@ -118,11 +119,15 @@ class Login extends React.Component {
          .post("/api/v1/users/auth", user)
          .then((res) => {
             // handle success
+            const authToken = res.data;
+            localStorage.setItem("authToken", authToken);
+            const user = jwtDecode(authToken);
             this.props.dispatch({
                type: actions.STORE_CURRENT_ADMIN,
-               payload: res.data,
+               payload: user,
             });
             console.log(res.data);
+            axios.defaults.headers.common["x-auth-token"] = authToken;
             this.props.history.push("/all-cases-admin");
          })
          .catch((err) => {

@@ -7,22 +7,50 @@ import CaseFile from "./pages/CaseFile";
 import CaseFileEdit from "./pages/CaseFileEdit";
 import Login from "./pages/Login";
 import CreateCase from "./pages/CreateCase";
+import jwtDecode from "jwt-decode";
+import store from "./store/store";
+import actions from "./store/actions";
+import axios from "axios";
+
+const authToken = localStorage.authToken;
+if (authToken) {
+   const currentTimeInSec = Date.now() / 1000;
+   const user = jwtDecode(authToken);
+   if (currentTimeInSec > user.exp) {
+      console.log("expired token");
+      store.dispatch({
+         type: actions.STORE_CURRENT_ADMIN,
+         payload: {},
+      });
+      delete axios.defaults.headers.common["x-auth-token"];
+   } else {
+      console.log("valid token");
+      store.dispatch({
+         type: actions.STORE_CURRENT_ADMIN,
+         payload: user,
+      });
+      axios.defaults.headers.common["x-auth-token"] = authToken;
+      const currentUrl = window.location.pathname;
+      if (currentUrl === "/") {
+         window.location.href = "/all-cases-admin";
+      }
+   }
+} else {
+   console.log("no token");
+   delete axios.defaults.headers.common["x-auth-token"];
+}
 
 export default function App() {
-    return (
-        <Router>
-            <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route
-                    exact
-                    path="/all-cases-admin"
-                    component={AllCasesAdmin}
-                />
-                <Route exact path="/case-name" component={CaseFile} />
-                <Route exact path="/case-name-edit" component={CaseFileEdit} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/case-new" component={CreateCase} />
-            </Switch>
-        </Router>
-    );
+   return (
+      <Router>
+         <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/all-cases-admin" component={AllCasesAdmin} />
+            <Route exact path="/case-name" component={CaseFile} />
+            <Route exact path="/case-name-edit" component={CaseFileEdit} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/case-new" component={CreateCase} />
+         </Switch>
+      </Router>
+   );
 }

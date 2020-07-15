@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const getSignUpEmailError = require("../../validation/getSignUpEmailError");
@@ -12,6 +13,7 @@ const getSignUpOrganizationError = require("../../validation/getSignUpOrganizati
 const selectUserByEmail = require("../../queries/selectUserByEmail");
 const getSignUpUsernameError = require("../../validation/getSignUpUsernameError");
 const findNameById = require("../../queries/findNameById");
+const jwt = require("jsonwebtoken");
 
 //@route        POST api/v1/users
 //@desc         Create a new user
@@ -86,14 +88,18 @@ router.post("/auth", async (req, res) => {
       dataBaseConnections
          .query(selectUserByEmail, email)
          .then((users) => {
-            const user = users[0];
-            res.status(200).json({
-               id: user.id,
-               name: user.name,
-               organization: user.organization,
-               email: user.email,
-               created_date: user.created_date,
+            const user = {
+               id: users[0].id,
+               name: users[0].name,
+               organization: users[0].organization,
+               email: users[0].email,
+               created_date: users[0].created_date,
+            };
+
+            const accessToken = jwt.sign(user, process.env.JWT_ACCESS_SECRET, {
+               expiresIn: "100m",
             });
+            res.status(200).json(accessToken);
          })
          .catch((err) => {
             console.log(err);
