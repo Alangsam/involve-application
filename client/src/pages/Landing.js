@@ -51,7 +51,7 @@ class Landing extends React.Component {
                         <div className="card pt-6 bg-transparent border-none">
                            <h1 className="text-center">Involve</h1>
                            <img
-                              href="client/src/images/13fd2e65-3d32-4f55-8744-78e9891789e1_200x200.png"
+                              href="client/src/images/logo.png"
                               alt="logo"
                            ></img>
                            <h4 className="text-left">
