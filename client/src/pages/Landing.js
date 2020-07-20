@@ -2,6 +2,8 @@ import React from "react";
 import CaseOverview from "../components/CaseOverview";
 import "../style/master.scss"; //import my custom bootstrap
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../store/actions";
@@ -48,6 +50,10 @@ class Landing extends React.Component {
                      >
                         <div className="card pt-6 bg-transparent border-none">
                            <h1 className="text-center">Involve</h1>
+                           <img
+                              href="client/src/images/13fd2e65-3d32-4f55-8744-78e9891789e1_200x200.png"
+                              alt="logo"
+                           ></img>
                            <h4 className="text-left">
                               Here you can involve yourself, in all the
                               systematic problems that the public sector has
@@ -73,14 +79,19 @@ class Landing extends React.Component {
                   </div>
                   <div className="col-lg-7 offset-lg-1">
                      <div className="">
-                        <Link to="/login" className="float-right">
-                           <h3>
-                              <b>...</b>
+                        <Link to="/login" className="float-right text-dark">
+                           <h3 className="d-inline mr-2">
+                              <b>Login</b>
                            </h3>
+                           <FontAwesomeIcon
+                              type="button"
+                              icon={faSignInAlt}
+                              className="float-right"
+                              size="2x"
+                           />
                         </Link>
                      </div>
-                     <div className="clearfix"></div>
-
+                     <div className="clearfix pb-2"></div>
                      <div>
                         {this.props.allCases.length > 0 &&
                            this.props.allCases.map((object, index) => {

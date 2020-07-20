@@ -26,12 +26,6 @@ class Login extends React.Component {
       };
    }
    validateAndStoreAdminInfo() {
-      const adminAccount = {
-         userName: "paulasanchez10",
-         userEmail: "p.sanchez@innocenceproject.org",
-         userPassword: "paulalikesrunning",
-         createdDate: "1591898317",
-      };
       const inputedName = document.getElementById("name-create").value;
       const inputedOrganization = document.getElementById("organization-create")
          .value;
@@ -167,7 +161,7 @@ class Login extends React.Component {
                   <div className="col-12">
                      <div>
                         <Link to="/" className="btn text-dark col-4">
-                           <h4>Back to Homepage</h4>
+                           <h4>Back to Involve</h4>
                         </Link>
                      </div>
                   </div>

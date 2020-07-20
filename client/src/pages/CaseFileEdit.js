@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import WysiwygEdit from "../components/WysiwygEdit";
 import axios from "axios";
-import { v4 as getUuid } from "uuid";
+//import { v4 as getUuid } from "uuid";
 
 class CaseFileEdit extends React.Component {
    saveAllAndEnterToDb() {

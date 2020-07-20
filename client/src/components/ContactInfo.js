@@ -28,7 +28,7 @@ export default class ContactInfo extends React.Component {
    //     return newArr;
    // }
    render() {
-      const props = this.props;
+      // const props = this.props;
       return (
          <div>
             {this.state.buttonShown && (

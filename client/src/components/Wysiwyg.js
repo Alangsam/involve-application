@@ -3,12 +3,12 @@ import {
    Editor,
    EditorState,
    RichUtils,
-   getCurrentContent,
-   ContentState,
-   convertToRaw,
+   // getCurrentContent,
+   // ContentState,
+   // convertToRaw,
 } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { stateFromHTML } from "draft-js-import-html";
+// import { stateFromHTML } from "draft-js-import-html";
 import { connect } from "react-redux";
 import actions from "../store/actions";
 
