@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import CaseOverview from "../components/CaseOverview";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -116,7 +116,7 @@ class AllCasesAdmin extends React.Component {
       return (
          <div onLoad={() => this.addEnterListener()}>
             <div className="">
-               <div className="text-center">
+               <div className="py-6">
                   <Link
                      to="/"
                      className="btn  pb-0"
@@ -129,26 +129,37 @@ class AllCasesAdmin extends React.Component {
                   <Link to="/case-new" className="btn  pb-0">
                      <h6>Create New </h6>
                   </Link>
+                  <div
+                     className="col-3 btn float-right"
+                     onClick={() => {
+                        this.setState(
+                           {
+                              usingAllCases: !this.state.usingAllCases,
+                           },
+                           () => {
+                              this.setUserCases();
+                           }
+                        );
+                     }}
+                  >
+                     <FontAwesomeIcon
+                        type="button"
+                        icon={faUserCircle}
+                        className="mb-n1"
+                        size="2x"
+                     />
+                     <h6 className="btn">
+                        <b>{this.props.adminAccount.name}</b>
+                     </h6>
+                  </div>
                </div>
                <div className="container">
                   <div className="row no-gutters my-5">
-                     <div className="col-3 d-inline-block text-left">
-                        <h6 className="">Logged in as:</h6>
-                        <h6
-                           className="btn btn-dark"
-                           onClick={() => {
-                              this.setState(
-                                 {
-                                    usingAllCases: !this.state.usingAllCases,
-                                 },
-                                 () => {
-                                    this.setUserCases();
-                                 }
-                              );
-                           }}
-                        >
-                           {this.props.adminAccount.name}
-                        </h6>
+                     <div className="col-md-5 d-inline-block align-bottom">
+                        <input
+                           id="search-cases"
+                           className="form-control d-inline"
+                        ></input>
                      </div>
                      <div className="d-inline col-1 mt-n1 mr-n3 ml-3">
                         <button
@@ -166,13 +177,7 @@ class AllCasesAdmin extends React.Component {
                            />
                         </button>
                      </div>
-                     <div className="col-4 d-inline-block align-bottom">
-                        <input
-                           id="search-cases"
-                           className="form-control d-inline"
-                        ></input>
-                     </div>
-                     <div className="col-4 align-bottom d-inline-block pl-7">
+                     <div className="col-md-6 align-bottom d-inline-block pl-7">
                         <select
                            id="sort-cases"
                            className="form-control "

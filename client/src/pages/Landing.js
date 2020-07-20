@@ -38,7 +38,7 @@ class Landing extends React.Component {
 
    render() {
       //const props = this.props;
-      console.log(this.props.allCases);
+      //console.log(this.props.allCases);
       return (
          <div className="">
             <div className="container">
@@ -49,11 +49,13 @@ class Landing extends React.Component {
                         style={{ height: "95vh" }}
                      >
                         <div className="card pt-6 bg-transparent border-none">
-                           <h1 className="text-center">Involve</h1>
-                           <img
-                              href="client/src/images/logo.png"
-                              alt="logo"
-                           ></img>
+                           <div className="text-xl-center text-center text-lg-left">
+                              <img
+                                 src={require("../images/logoNoText.png")}
+                                 alt="logo"
+                                 className=" d-inline-block"
+                              />
+                           </div>
                            <h4 className="text-left">
                               Here you can involve yourself, in all the
                               systematic problems that the public sector has
@@ -81,7 +83,7 @@ class Landing extends React.Component {
                      <div className="">
                         <Link to="/login" className="float-right text-dark">
                            <h3 className="d-inline mr-2">
-                              <b>Login</b>
+                              <b>Admin</b>
                            </h3>
                            <FontAwesomeIcon
                               type="button"
