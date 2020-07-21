@@ -11,17 +11,43 @@ class CreateCase extends React.Component {
       super();
       this.state = {
          imageUploadedText: "Upload Image",
+         imageUploaded: {},
       };
    }
 
-   setImageUploadText(e) {
-      const imageName = e.target.value;
-      this.setState({ imageUploadedText: imageName });
+   setImageUploadedStates(e) {
+      const image = e.target.files[0];
+      if (image) {
+         this.setState({
+            imageUploadedText: image.name,
+            imageUploaded: image,
+         });
+      } else {
+         this.setState({
+            imageUploadedText: "Upload Image",
+            imageUploaded: {},
+         });
+      }
    }
 
    // getWhatsInputed(e) {
    //     e.target.value;
    // }
+
+   saveImage(e) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("case-image", this.state.imageUploaded);
+      axios
+         .post("/api/v1/caseImage", formData)
+         .then((res) => {
+            console.log(res.data);
+         })
+         .catch((err) => {
+            console.log(err.response.data);
+         });
+   }
+
    saveAllAndEnterToDb() {
       const id = this.props.adminAccount.id;
       const name = document.getElementById("case-name-input").value;
@@ -86,8 +112,14 @@ class CreateCase extends React.Component {
                         ></input>
                      </div>
                      <div className="clearfix py-4"></div>
-                     <div className="col-md-4 offset-md-4 text-center">
-                        <form>
+                     <div className="col-md-4 offset-md-4">
+                        <form
+                           id="image-form"
+                           onSubmit={(e) => {
+                              this.saveImage(e);
+                              console.log("submit");
+                           }}
+                        >
                            <label
                               className="custom-file-label"
                               htmlFor="image-input"
@@ -99,7 +131,7 @@ class CreateCase extends React.Component {
                               className="custom-file-input"
                               id="image-input"
                               onChange={(e) => {
-                                 this.setImageUploadText(e);
+                                 this.setImageUploadedStates(e);
                               }}
                            ></input>
                         </form>
@@ -160,9 +192,10 @@ class CreateCase extends React.Component {
                            <button
                               className="btn btn-danger w-100 mt-2 p-4"
                               type="submit"
-                              onClick={() => {
-                                 this.saveAllAndEnterToDb();
-                              }}
+                              form="image-form"
+                              // onClick={() => {
+                              //    this.saveAllAndEnterToDb();
+                              // }}
                            >
                               <h4>SAVE ALL</h4>
                            </button>
