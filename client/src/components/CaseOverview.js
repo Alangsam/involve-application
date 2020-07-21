@@ -47,20 +47,17 @@ class CaseOverview extends React.Component {
    render() {
       return (
          <div className="card mb-6 bg-transparent">
-            <h2 className="text-center bg-dark text-light mb-0 rounded-top  py-1">
-               {this.props.name}
-            </h2>
-            <div className="hmmm">
+            {/* <h2 className="text-center bg-dark text-light mb-0 rounded-top  py-1"></h2> */}
+            <div className="col px-0">
                <img
                   src={this.props.url}
                   alt="forgot this dudes name"
-                  className="thumb-post"
+                  className="w-100"
                />
+               <div className="caption bg-translucent text-center">
+                  <h3 className="text-dark">{this.props.subTitle}</h3>
+               </div>
             </div>
-            <h2 className="text-center bg-dark text-light mb-0 py-1">
-               {this.props.subTitle}
-            </h2>
-
             <p
                className="text-left"
                dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}

@@ -1,19 +1,19 @@
 $spacer: 1rem; // 16px in most browsers
 $spacers: ();
 $spacers: map-merge(
-    (
-        0: 0px,
-        1: 4px,
-        2: 8px,
-        3: 12px,
-        4: 16px,
-        5: 24px,
-        6: 32px,
-        7: 48px,
-        8: 64px,
-        9: 128px,
-    ),
-    $spacers
+   (
+      0: 0px,
+      1: 4px,
+      2: 8px,
+      3: 12px,
+      4: 16px,
+      5: 24px,
+      6: 32px,
+      7: 48px,
+      8: 64px,
+      9: 128px,
+   ),
+   $spacers
 );
 
 // Cards
@@ -24,8 +24,8 @@ $card-border-width: 0;
 $card-border-radius: $border-radius !default;
 $card-border-color: rgba($black, 0.125) !default;
 $card-inner-border-radius: subtract(
-    $card-border-radius,
-    $card-border-width
+   $card-border-radius,
+   $card-border-width
 ) !default;
 $card-cap-bg: rgba($black, 0.03) !default;
 $card-cap-color: null !default;
@@ -41,3 +41,17 @@ $card-deck-margin: $card-group-margin !default;
 $card-columns-count: 3 !default;
 $card-columns-gap: 1.25rem !default;
 $card-columns-margin: $card-spacer-y !default;
+
+$enable-caret: true !default;
+$enable-rounded: true !default;
+$enable-shadows: false !default;
+$enable-gradients: false !default;
+$enable-transitions: true !default;
+$enable-prefers-reduced-motion-media-query: true !default;
+$enable-hover-media-query: false !default; // Deprecated, no longer affects any compiled CSS
+$enable-grid-classes: true !default;
+$enable-pointer-cursor-for-buttons: true !default;
+$enable-print-styles: true !default;
+$enable-responsive-font-sizes: false !default;
+$enable-validation-icons: true !default;
+$enable-deprecation-messages: true !default;

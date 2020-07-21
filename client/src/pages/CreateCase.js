@@ -9,7 +9,14 @@ import isEmpty from "lodash/isEmpty";
 class CreateCase extends React.Component {
    constructor() {
       super();
-      this.state = {};
+      this.state = {
+         imageUploadedText: "Upload Image",
+      };
+   }
+
+   setImageUploadText(e) {
+      const imageName = e.target.value;
+      this.setState({ imageUploadedText: imageName });
    }
 
    // getWhatsInputed(e) {
@@ -80,15 +87,22 @@ class CreateCase extends React.Component {
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-4 offset-md-4 text-center">
-                        <h5>Upload Image or Enter URL</h5>
-                        <input
-                           type="file"
-                           className="form-control-file"
-                        ></input>
-                        <input
-                           className="form-control"
-                           id="case-image-url-input"
-                        ></input>
+                        <form>
+                           <label
+                              className="custom-file-label"
+                              htmlFor="image-input"
+                           >
+                              {this.state.imageUploadedText}
+                           </label>
+                           <input
+                              type="file"
+                              className="custom-file-input"
+                              id="image-input"
+                              onChange={(e) => {
+                                 this.setImageUploadText(e);
+                              }}
+                           ></input>
+                        </form>
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-4 offset-md-4 text-center">
