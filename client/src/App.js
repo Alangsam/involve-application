@@ -23,6 +23,15 @@ if (authToken) {
          payload: {},
       });
       delete axios.defaults.headers.common["x-auth-token"];
+      const currentUrl = window.location.pathname;
+      if (
+         currentUrl !== "/" &&
+         currentUrl !== "/case-name" &&
+         currentUrl !== "/login"
+      ) {
+         window.location.href = "/";
+         console.log(currentUrl);
+      }
    } else {
       console.log("valid token");
       store.dispatch({
@@ -31,13 +40,23 @@ if (authToken) {
       });
       axios.defaults.headers.common["x-auth-token"] = authToken;
       const currentUrl = window.location.pathname;
-      if (currentUrl === "/") {
+      if (currentUrl === "/" || currentUrl === "/case-name") {
          window.location.href = "/all-cases-admin";
       }
    }
 } else {
    console.log("no token");
    delete axios.defaults.headers.common["x-auth-token"];
+   const currentUrl = window.location.pathname;
+   //console.log(currentUrl);
+   if (
+      currentUrl !== "/" &&
+      currentUrl !== "/case-name" &&
+      currentUrl !== "/login"
+   ) {
+      window.location.href = "/";
+      console.log(currentUrl);
+   }
 }
 
 export default function App() {
