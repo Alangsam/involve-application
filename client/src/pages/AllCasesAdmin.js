@@ -16,7 +16,7 @@ class AllCasesAdmin extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         order: "cases.title%20ASC",
+         order: "cases.sub_title%20ASC",
          cases: [],
          searchTerm: "",
          userCases: [],
@@ -56,7 +56,7 @@ class AllCasesAdmin extends React.Component {
       input.addEventListener("keyup", function (event) {
          if (event.keyCode === 13) {
             event.preventDefault();
-            console.log(document.getElementById("search-button"));
+            //console.log(document.getElementById("search-button"));
             document.getElementById("search-button").click();
          }
       });
@@ -81,7 +81,7 @@ class AllCasesAdmin extends React.Component {
          )
          .then((res) => {
             // handle success
-            console.log(res);
+            //console.log(res);
             this.setState({
                cases: res.data,
             });
@@ -191,29 +191,33 @@ class AllCasesAdmin extends React.Component {
                </div>
                <div className="container">
                   <div className="row no-gutters my-5">
-                     <div className="col-md-5 d-inline-block align-bottom">
+                     <div className="input-group col-md-6 pr-md-3 pb-3 pb-md-0">
                         <input
                            id="search-cases"
                            className="form-control d-inline"
                         ></input>
+                        <div className="input-group-append">
+                           {/* <span class="input-group-text" id="basic-addon2">
+                              @example.com
+                           </span> */}
+                           <button
+                              className="btn bg-dark text-light py-0"
+                              id="search-button"
+                              onClick={() => {
+                                 this.setSearchTerm();
+                              }}
+                           >
+                              <FontAwesomeIcon
+                                 type="button"
+                                 icon={faSearch}
+                                 className=""
+                                 size="2x"
+                              />
+                           </button>
+                        </div>
                      </div>
-                     <div className="d-inline col-1 mt-n1 mr-n3 ml-3">
-                        <button
-                           className="btn"
-                           id="search-button"
-                           onClick={() => {
-                              this.setSearchTerm();
-                           }}
-                        >
-                           <FontAwesomeIcon
-                              type="button"
-                              icon={faSearch}
-                              className="float-right"
-                              size="2x"
-                           />
-                        </button>
-                     </div>
-                     <div className="col-md-6 align-bottom d-inline-block pl-7">
+                     {/* <div className="d-inline col-md-1 mt-n1 "></div> */}
+                     <div className="col-md-6 align-bottom d-inline-block pl-md-3">
                         <select
                            id="sort-cases"
                            className="form-control "
@@ -221,12 +225,12 @@ class AllCasesAdmin extends React.Component {
                               this.setOrder(e);
                            }}
                         >
-                           <option value="cases.title%20ASC">A-Z</option>
-                           <option value="cases.title%20DESC">Z-A</option>
-                           <option value="cases.created_at%20DESC">
+                           <option value="cases.sub_title%20ASC">A-Z</option>
+                           <option value="cases.sub_title%20DESC">Z-A</option>
+                           <option value="cases.last_updated_at%20DESC">
                               Most Recent
                            </option>
-                           <option value="cases.created_at%20ASC">
+                           <option value="cases.last_updated_at%20ASC">
                               Oldest
                            </option>
                         </select>

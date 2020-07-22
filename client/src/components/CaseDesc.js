@@ -17,7 +17,7 @@ class CaseDesc extends React.Component {
       axios
          .get(`/api/v1/users?id=${exampleCase.updatedByUserId}`)
          .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             this.setState({ id: response.data[0].name });
          })
          .catch((error) => {
@@ -28,12 +28,13 @@ class CaseDesc extends React.Component {
 
    render() {
       const exampleCase = this.props.allCases[this.props.indexOfSelectedCase];
-      console.log(exampleCase);
+      //console.log(exampleCase);
       return (
          <div>
-            <div className="text-center text-dark">
+            {/* <div className="text-center text-dark">
                <h1>{exampleCase.title}</h1>
-            </div>
+            </div> */}
+            <div className="clearfix pb-4"></div>
             <img
                className="w-100 rounded"
                src={exampleCase.imageUrl}

@@ -41,7 +41,7 @@ class CaseOverview extends React.Component {
          type: actions.STORE_INDEXOF_CASE,
          payload: this.props.id,
       });
-      console.log(this.props.id);
+      //console.log(this.props.id);
    }
 
    render() {
@@ -58,27 +58,28 @@ class CaseOverview extends React.Component {
                   <h3 className="text-dark">{this.props.subTitle}</h3>
                </div>
             </div>
-            <p
-               className="text-left"
-               dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}
-            ></p>
-            <h6 className="">
-               <b>
-                  <b>{this.state.id + " "}</b>
-               </b>
+            <h6 className="text-muted">
+               <b>{this.state.id + " "}</b>
+
                <b className="text-muted">
                   on {format(this.props.updatedAt, "PPPpp")}
                </b>
             </h6>
-            <Link
-               to="/case-name"
-               className="btn btn-dark text-light"
-               onClick={() => {
-                  this.storeIndexOfCase();
-               }}
-            >
-               <h3>view more</h3>
-            </Link>
+            <p
+               className="text-left"
+               dangerouslySetInnerHTML={{ __html: this.truncateDescription() }}
+            ></p>
+            <div>
+               <Link
+                  to="/case-name"
+                  className="btn btn-dark text-light w-25 float-right"
+                  onClick={() => {
+                     this.storeIndexOfCase();
+                  }}
+               >
+                  view more
+               </Link>
+            </div>
          </div>
       );
    }
