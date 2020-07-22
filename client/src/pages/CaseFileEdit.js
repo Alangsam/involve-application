@@ -3,14 +3,65 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import WysiwygEdit from "../components/WysiwygEdit";
 import axios from "axios";
+import isEmpty from "lodash/isEmpty";
 //import { v4 as getUuid } from "uuid";
 
 class CaseFileEdit extends React.Component {
-   saveAllAndEnterToDb() {
+   constructor() {
+      super();
+      this.state = {
+         imageUploadedText: "Upload Image",
+         imageUploaded: false,
+      };
+   }
+
+   setImageUploadedStates(e) {
+      const image = e.target.files[0];
+      if (image) {
+         this.setState({
+            imageUploadedText: image.name,
+            imageUploaded: image,
+         });
+      } else {
+         this.setState({
+            imageUploadedText: "Upload Image",
+            imageUploaded: false,
+         });
+      }
+      console.log(this.state.imageUploaded);
+      console.log(image);
+   }
+
+   async saveAllAndEnterToDb(e) {
+      e.preventDefault();
+
+      let imageUrl;
+      let formData;
+      if (this.state.imageUploaded === false) {
+         console.log("no new image");
+         imageUrl = this.props.allCases[this.props.indexOfSelectedCase]
+            .imageUrl;
+      } else {
+         formData = await new FormData();
+         await formData.append("case-image", this.state.imageUploaded);
+         console.log("new image");
+         await axios
+            .post("/api/v1/caseImage", formData)
+            .then((res) => {
+               console.log(res.data);
+               //this is the url of image
+               imageUrl = res.data;
+            })
+            .catch((err) => {
+               console.log(err.response.data);
+            });
+      }
+      console.log(this.state.imageUploaded);
+
       const id = this.props.adminAccount.id;
       const caseId = this.props.allCases[this.props.indexOfSelectedCase].id;
       const name = document.getElementById("case-name-input").value;
-      const imageUrl = document.getElementById("case-image-url-input").value;
+      //const imageUrl = document.getElementById("case-image-url-input").value;
       const subTitle = document.getElementById("case-subtitle-input").value;
       const description = this.props.wysiwygState;
       const createdAt = this.props.allCases[this.props.indexOfSelectedCase]
@@ -35,6 +86,7 @@ class CaseFileEdit extends React.Component {
          contactPhone: contactPhone,
          contactEmail: contactEmail,
       };
+      console.log(newCase);
       axios
          .post("/api/v1/allCases/edit", newCase)
          .then((res) => {
@@ -44,7 +96,7 @@ class CaseFileEdit extends React.Component {
          .catch((err) => {
             console.log(err);
          });
-      this.props.history.push("/all-cases-admin");
+      //this.props.history.push("/all-cases-admin");
    }
 
    render() {
@@ -56,7 +108,7 @@ class CaseFileEdit extends React.Component {
                      <div className="d-inline">
                         <h4 className="d-inline">Logged in as:</h4>
                         <h5 className="d-inline">
-                           {this.props.adminAccount.userName}
+                           {this.props.adminAccount.name}
                         </h5>
                         <Link
                            to="/all-cases-admin"
@@ -88,26 +140,36 @@ class CaseFileEdit extends React.Component {
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-6 offset-md-3 text-center">
-                        <h5>Upload Image or Enter URL</h5>
-                        <input
-                           type="file"
-                           className="form-control-file"
-                        ></input>
-                        <input
-                           id="case-image-url-input"
-                           className="form-control"
-                           defaultValue={
+                        <label>Current image</label>
+                        <img
+                           src={
                               this.props.allCases[
                                  this.props.indexOfSelectedCase
                               ].imageUrl
                            }
-                        ></input>
-                        <button
-                           className="btn btn-dark w-25 mt-2"
-                           type="submit"
-                        >
-                           Save
-                        </button>
+                           alt="current"
+                           className="img-thumbnail"
+                           width="200px"
+                        />
+                        <div className="clearfix py-4"></div>
+                     </div>
+                     <div className="col-md-6 offset-md-3 text-center">
+                        <form id="image-form">
+                           <label
+                              className="custom-file-label"
+                              htmlFor="image-input"
+                           >
+                              {this.state.imageUploadedText}
+                           </label>
+                           <input
+                              id="case-image-url-input"
+                              type="file"
+                              className="custom-file-input"
+                              onChange={(e) => {
+                                 this.setImageUploadedStates(e);
+                              }}
+                           ></input>
+                        </form>
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-6 offset-md-3 text-center">
@@ -196,8 +258,9 @@ class CaseFileEdit extends React.Component {
                         <button
                            className="btn btn-danger w-100 mt-2 p-4"
                            type="submit"
-                           onClick={() => {
-                              this.saveAllAndEnterToDb();
+                           form="image-form"
+                           onClick={(e) => {
+                              this.saveAllAndEnterToDb(e);
                            }}
                         >
                            <h4>SAVE ALL</h4>

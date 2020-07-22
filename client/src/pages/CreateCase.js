@@ -30,24 +30,6 @@ class CreateCase extends React.Component {
       }
    }
 
-   // getWhatsInputed(e) {
-   //     e.target.value;
-   // }
-
-   async saveImage(e) {
-      // const formData = new FormData();
-      // formData.append("case-image", this.state.imageUploaded);
-      // axios
-      //    .post("/api/v1/caseImage", formData)
-      //    .then((res) => {
-      //       console.log(res.data);
-      //       //this is the url of image
-      //    })
-      //    .catch((err) => {
-      //       console.log(err.response.data);
-      //    });
-   }
-
    async saveAllAndEnterToDb(e) {
       e.preventDefault();
       const formData = new FormData();
@@ -129,13 +111,7 @@ class CreateCase extends React.Component {
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-4 offset-md-4">
-                        <form
-                           id="image-form"
-                           // onSubmit={(e) => {
-                           //    this.saveImage(e);
-                           //    console.log("submit");
-                           // }}
-                        >
+                        <form id="image-form">
                            <label
                               className="custom-file-label"
                               htmlFor="image-input"
