@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+   faSearch,
+   faUserCircle,
+   faFolderPlus,
+   faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import CaseOverview from "../components/CaseOverview";
 import { connect } from "react-redux";
 import axios from "axios";
@@ -116,21 +121,52 @@ class AllCasesAdmin extends React.Component {
       return (
          <div onLoad={() => this.addEnterListener()}>
             <div className="">
-               <div className="py-6">
+               <div className="py-6 btn-group btn-block ">
                   <Link
                      to="/"
-                     className="btn  pb-0"
+                     className="btn text-light"
+                     style={{
+                        width: "33%",
+                        backgroundColor: "hsl(210, 10%, 27%)",
+                     }}
                      onClick={() => {
                         this.logOutCurrentUser();
                      }}
                   >
-                     <h6>Log out</h6>
-                  </Link>
-                  <Link to="/case-new" className="btn  pb-0">
-                     <h6>Create New </h6>
+                     <FontAwesomeIcon
+                        type="button"
+                        icon={faSignOutAlt}
+                        className="mb-n1"
+                        size="2x"
+                     />
+                     <h6 className="btn text-light">
+                        <b>Log Out</b>
+                     </h6>
                   </Link>
                   <div
-                     className="col-3 btn float-right"
+                     className="btn text-light"
+                     style={{
+                        width: "33%",
+                        backgroundColor: "hsl(210, 10%, 25%)",
+                     }}
+                  >
+                     <FontAwesomeIcon
+                        type="button"
+                        icon={faFolderPlus}
+                        className="mb-n1"
+                        size="2x"
+                     />
+                     <h6 className="btn text-light">
+                        <b>Create New</b>
+                     </h6>
+                  </div>
+
+                  <div
+                     className="btn text-light"
+                     style={{
+                        width: "33%",
+                        backgroundColor: "hsl(210, 10%, 23%)",
+                     }}
                      onClick={() => {
                         this.setState(
                            {
@@ -148,7 +184,7 @@ class AllCasesAdmin extends React.Component {
                         className="mb-n1"
                         size="2x"
                      />
-                     <h6 className="btn">
+                     <h6 className="btn text-light">
                         <b>{this.props.adminAccount.name}</b>
                      </h6>
                   </div>
