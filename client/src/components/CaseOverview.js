@@ -17,7 +17,7 @@ class CaseOverview extends React.Component {
       axios
          .get(`/api/v1/users?id=${this.props.userId}`)
          .then((response) => {
-            console.log(response.data[0].name);
+            //console.log(response.data[0].name);
             this.setState({ id: response.data[0].name });
          })
          .catch((error) => {

@@ -34,24 +34,39 @@ class CreateCase extends React.Component {
    //     e.target.value;
    // }
 
-   saveImage(e) {
+   async saveImage(e) {
+      // const formData = new FormData();
+      // formData.append("case-image", this.state.imageUploaded);
+      // axios
+      //    .post("/api/v1/caseImage", formData)
+      //    .then((res) => {
+      //       console.log(res.data);
+      //       //this is the url of image
+      //    })
+      //    .catch((err) => {
+      //       console.log(err.response.data);
+      //    });
+   }
+
+   async saveAllAndEnterToDb(e) {
       e.preventDefault();
       const formData = new FormData();
       formData.append("case-image", this.state.imageUploaded);
-      axios
+      let imageUrl;
+      await axios
          .post("/api/v1/caseImage", formData)
          .then((res) => {
             console.log(res.data);
+            //this is the url of image
+            imageUrl = res.data;
          })
          .catch((err) => {
             console.log(err.response.data);
          });
-   }
 
-   saveAllAndEnterToDb() {
       const id = this.props.adminAccount.id;
       const name = document.getElementById("case-name-input").value;
-      const imageUrl = document.getElementById("case-image-url-input").value;
+      // const imageUrl = document.getElementById("case-image-url-input").value;
       const subTitle = document.getElementById("case-subtitle-input").value;
       const description = this.props.wysiwygState;
       const contactName = document.getElementById("contact-name-input").value;
@@ -71,6 +86,7 @@ class CreateCase extends React.Component {
          contactPhone: contactPhone,
          contactEmail: contactEmail,
       };
+      console.log(newCase);
       axios
          .post("/api/v1/allCases", newCase)
          .then((res) => {
@@ -115,10 +131,10 @@ class CreateCase extends React.Component {
                      <div className="col-md-4 offset-md-4">
                         <form
                            id="image-form"
-                           onSubmit={(e) => {
-                              this.saveImage(e);
-                              console.log("submit");
-                           }}
+                           // onSubmit={(e) => {
+                           //    this.saveImage(e);
+                           //    console.log("submit");
+                           // }}
                         >
                            <label
                               className="custom-file-label"
@@ -193,9 +209,9 @@ class CreateCase extends React.Component {
                               className="btn btn-danger w-100 mt-2 p-4"
                               type="submit"
                               form="image-form"
-                              // onClick={() => {
-                              //    this.saveAllAndEnterToDb();
-                              // }}
+                              onClick={(e) => {
+                                 this.saveAllAndEnterToDb(e);
+                              }}
                            >
                               <h4>SAVE ALL</h4>
                            </button>
