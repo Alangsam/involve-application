@@ -44,11 +44,21 @@ class Login extends React.Component {
       axios
          .post("/api/v1/users", adminUser)
          .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
+            // this.props.dispatch({
+            //    type: actions.STORE_CURRENT_ADMIN,
+            //    payload: res.data,
+            // });
+            // this.props.history.push("/all-cases-admin");
+            const authToken = res.data;
+            localStorage.setItem("authToken", authToken);
+            const user = jwtDecode(authToken);
             this.props.dispatch({
                type: actions.STORE_CURRENT_ADMIN,
-               payload: res.data,
+               payload: user,
             });
+            console.log(res.data);
+            axios.defaults.headers.common["x-auth-token"] = authToken;
             this.props.history.push("/all-cases-admin");
          })
          .catch((err) => {

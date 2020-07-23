@@ -143,7 +143,8 @@ class AllCasesAdmin extends React.Component {
                         <b>Log Out</b>
                      </h6>
                   </Link>
-                  <div
+                  <Link
+                     to="/case-new"
                      className="btn text-light"
                      style={{
                         width: "33%",
@@ -159,9 +160,9 @@ class AllCasesAdmin extends React.Component {
                      <h6 className="btn text-light">
                         <b>Create New</b>
                      </h6>
-                  </div>
+                  </Link>
 
-                  <div
+                  <button
                      className="btn text-light"
                      style={{
                         width: "33%",
@@ -187,7 +188,7 @@ class AllCasesAdmin extends React.Component {
                      <h6 className="btn text-light">
                         <b>{this.props.adminAccount.name}</b>
                      </h6>
-                  </div>
+                  </button>
                </div>
                <div className="container">
                   <div className="row no-gutters my-5">

@@ -45,14 +45,21 @@ router.post("/", async (req, res) => {
             dataBaseConnections
                .query(selectUserById, id)
                .then((users) => {
-                  const user = users[0];
-                  res.status(200).json({
-                     id: user.id,
-                     name: user.name,
-                     organization: user.organization,
-                     email: user.email,
-                     createdAt: user.created_date,
-                  });
+                  const user = {
+                     id: users[0].id,
+                     name: users[0].name,
+                     organization: users[0].organization,
+                     email: users[0].email,
+                     created_date: users[0].created_date,
+                  };
+                  const accessToken = jwt.sign(
+                     user,
+                     process.env.JWT_ACCESS_SECRET,
+                     {
+                        expiresIn: "100m",
+                     }
+                  );
+                  res.status(200).json(accessToken);
                })
                .catch((err) => {
                   console.log(err);
