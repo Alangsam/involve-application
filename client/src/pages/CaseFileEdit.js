@@ -94,7 +94,7 @@ class CaseFileEdit extends React.Component {
          .catch((err) => {
             console.log(err);
          });
-      //this.props.history.push("/all-cases-admin");
+      this.props.history.push("/all-cases-admin");
    }
 
    render() {
