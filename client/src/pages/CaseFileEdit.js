@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import WysiwygEdit from "../components/WysiwygEdit";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+   faCaretSquareLeft,
+   faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 class CaseFileEdit extends React.Component {
    constructor() {
@@ -103,16 +108,28 @@ class CaseFileEdit extends React.Component {
             <div className="container">
                <div className="row">
                   <div className="col-12">
-                     <div className="d-inline">
-                        <h4 className="d-inline">Logged in as:</h4>
-                        <h5 className="d-inline">
-                           {this.props.adminAccount.name}
-                        </h5>
+                     <div className="col-md-8 offset-md-2 pt-4">
+                        <div className="float-right">
+                           <FontAwesomeIcon
+                              //type="button"
+                              icon={faUserCircle}
+                              className="mb-n1 pr-1"
+                              size="2x"
+                           />
+                           <h5 className="d-inline">
+                              {this.props.adminAccount.name}
+                           </h5>
+                        </div>
                         <Link
                            to="/all-cases-admin"
-                           className="float-right d-inline"
+                           className="btn text-dark d-inline"
                         >
-                           ...
+                           <FontAwesomeIcon
+                              type="button"
+                              icon={faCaretSquareLeft}
+                              className=""
+                              style={{ transform: "scale(4, 2)" }}
+                           />
                         </Link>
                      </div>
                      <div className="clearfix py-4"></div>
@@ -138,7 +155,7 @@ class CaseFileEdit extends React.Component {
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-6 offset-md-3 text-center">
-                        <label>Current image</label>
+                        <label className="d-block">Current image</label>
                         <img
                            src={
                               this.props.allCases[

@@ -5,6 +5,11 @@ import { connect } from "react-redux";
 import { v4 as getUuid } from "uuid";
 import axios from "axios";
 import isEmpty from "lodash/isEmpty";
+import {
+   faCaretSquareLeft,
+   faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class CreateCase extends React.Component {
    constructor() {
@@ -87,17 +92,29 @@ class CreateCase extends React.Component {
             <div className="container">
                <div className="row">
                   <div className="col-12">
-                     <div className="d-inline">
-                        <h4 className="d-inline">Logged in as:</h4>
-                        <h5 className="d-inline">
-                           {this.props.adminAccount.id}
-                        </h5>
+                     <div className="col-md-8 offset-md-2 pt-4">
                         <Link
                            to="/all-cases-admin"
-                           className="float-right d-inline"
+                           className="btn text-dark d-inline"
                         >
-                           ...
+                           <FontAwesomeIcon
+                              type="button"
+                              icon={faCaretSquareLeft}
+                              className=""
+                              style={{ transform: "scale(4, 2)" }}
+                           />
                         </Link>
+                        <div className="float-right">
+                           <FontAwesomeIcon
+                              //type="button"
+                              icon={faUserCircle}
+                              className="mb-n1 pr-1"
+                              size="2x"
+                           />
+                           <h5 className="d-inline">
+                              {this.props.adminAccount.name}
+                           </h5>
+                        </div>
                      </div>
                      <div className="clearfix py-4"></div>
                      <div className="col-md-4 offset-md-4 text-center">
