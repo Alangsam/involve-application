@@ -170,7 +170,7 @@ class Login extends React.Component {
                <div className="row">
                   <div className="col-12">
                      <div>
-                        <Link to="/" className="btn text-dark col-4">
+                        <Link to="/" className="text-dark col-4">
                            <h4>Back to Involve</h4>
                         </Link>
                      </div>

@@ -102,7 +102,7 @@ router.post("/auth", async (req, res) => {
                email: users[0].email,
                created_date: users[0].created_date,
             };
-
+            console.log(user);
             const accessToken = jwt.sign(user, process.env.JWT_ACCESS_SECRET, {
                expiresIn: "100m",
             });
