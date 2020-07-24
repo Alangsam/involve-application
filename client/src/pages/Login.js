@@ -189,6 +189,7 @@ class Login extends React.Component {
                               <input
                                  id="email-login"
                                  className=" form-control"
+                                 type="email"
                               ></input>
                               {this.state.emailHasError && (
                                  <div
@@ -217,6 +218,7 @@ class Login extends React.Component {
                               <input
                                  id="password-login"
                                  className=" form-control"
+                                 type="password"
                               ></input>
                            </form>
                            <button
@@ -252,6 +254,7 @@ class Login extends React.Component {
                               <input
                                  id="name-create"
                                  className=" form-control"
+                                 type="username"
                               ></input>
                               <label htmlFor="email-create">Organization</label>
                               {this.state.createOrgHasError && (
@@ -280,6 +283,7 @@ class Login extends React.Component {
                               <input
                                  id="email-create"
                                  className=" form-control"
+                                 type="email"
                               ></input>
                               <label
                                  htmlFor="password-create"
@@ -299,6 +303,7 @@ class Login extends React.Component {
                               <input
                                  id="password-create"
                                  className=" form-control"
+                                 type="password"
                               ></input>
                            </form>
                            <button

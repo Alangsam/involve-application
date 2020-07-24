@@ -79,17 +79,17 @@ class Landing extends React.Component {
                         </div>
                      </div>
                   </div>
-                  <div className="col-lg-7 offset-lg-1">
+                  <div className="col-lg-7 offset-lg-1 pt-4">
                      <div className="">
                         <Link to="/login" className="float-right text-dark">
-                           <h3 className="d-inline mr-2">
+                           <h5 className="d-inline mr-2">
                               <b>Admin</b>
-                           </h3>
+                           </h5>
                            <FontAwesomeIcon
                               type="button"
                               icon={faSignInAlt}
-                              className="float-right"
-                              size="2x"
+                              className="float-right mt-1"
+                              size="1x"
                            />
                         </Link>
                      </div>
