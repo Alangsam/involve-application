@@ -79,11 +79,6 @@ class Landing extends React.Component {
                         </div>
                      </div>
                   </div>
-                  <list>
-                     {["Evan", "Ben", "Maria", "Daniel"].map((name) => (
-                        <span>{name}</span>
-                     ))}
-                  </list>
                   <div className="col-lg-7 offset-lg-1 pt-4">
                      <div className="">
                         <Link to="/login" className="float-right text-dark">
