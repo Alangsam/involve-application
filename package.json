@@ -14,7 +14,7 @@
    "author": "alex",
    "license": "ISC",
    "dependencies": {
-      "aws-sdk": "^2.717.0",
+      "aws-sdk": "^2.814.0",
       "bcrypt": "^5.0.0",
       "concurrently": "^5.2.0",
       "date-fns": "^2.14.0",
